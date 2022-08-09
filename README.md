@@ -1,1 +1,1 @@
-# Lipi
+# Polytechnic
