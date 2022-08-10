@@ -1,12 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\SupportTeam;
-
+use App\Models\n_subjectModel;
+use App\Models\departmentModel;
+use App\Helpers\Qs;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class Nsubjectcontroller extends Controller
 {
+
+    // public function nobir(){
+    //     echo "insert";
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,9 @@ class Nsubjectcontroller extends Controller
      */
     public function index()
     {
-        echo "index show";
+        $subject_db = n_subjectModel::all();
+        $department_db = departmentModel::all();
+        return view('pages.support_team.Nsubject.index',compact('subject_db',"department_db"));
     }
 
     /**
@@ -35,7 +43,16 @@ class Nsubjectcontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $insert = new n_subjectModel; 
+
+        $insert->departments_id =$request->departments_id;
+        $insert->subject_name =$request->name;
+        $insert->short_name =$request->short_name;
+        
+        $insert->save();
+
+        return Qs::jsonStoreOk();
     }
 
     /**
@@ -58,6 +75,9 @@ class Nsubjectcontroller extends Controller
     public function edit($id)
     {
         //
+        $data_update = n_subjectModel::find($id);
+
+        return view("pages.support_team.Nsubject.edit",compact("data_update"));
     }
 
     /**
@@ -70,6 +90,10 @@ class Nsubjectcontroller extends Controller
     public function update(Request $request, $id)
     {
         //
+        $update = n_subjectModel::find($id);
+      $update->subject_name = $request->name;
+      $update->save();
+      return Qs::jsonUpdateOk();
     }
 
     /**
@@ -81,5 +105,7 @@ class Nsubjectcontroller extends Controller
     public function destroy($id)
     {
         //
+        n_subjectModel::find($id)->delete();
+        return back()->with('flash_success', __('msg.del_ok'));
     }
 }
