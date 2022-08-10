@@ -2,7 +2,7 @@
 // use App\Http\Controllers\departmentController;
 Auth::routes();
 
-//Route::get('/test', 'TestController@index')->name('test');
+
 Route::get('/privacy-policy', 'HomeController@privacy_policy')->name('privacy_policy');
 Route::get('/terms-of-use', 'HomeController@terms_of_use')->name('terms_of_use');
 
