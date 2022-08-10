@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\SupportTeam;
-
+use App\Models\n_subjectModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class Nsubjectcontroller extends Controller
      */
     public function index()
     {
-        echo "index show";
+        echo "index shows";
     }
 
     /**
