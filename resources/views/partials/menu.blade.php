@@ -149,6 +149,10 @@
                             {{-- write semester instead  --}}
                         <a href="{{ route('classes.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classes.index','classes.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester</span></a>
                     </li>
+                    {{--Manage Subjects--}}
+                    <li class="nav-item">
+                        <a href="{{ route('subjects.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjects.index','subjects.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester Details</span></a>
+                    </li>
 
                     {{--Manage Dorms--}}
                     <li class="nav-item">
@@ -162,7 +166,7 @@
 
                     {{--Manage Subject--}}
                     <li class="nav-item">
-                        <a href="{{ route('subjects.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjects.index','subjects.edit',]) ? 'active' : '' }}"><i class="icon-pin"></i> <span>Subjects</span></a>
+                        <a href="{{ route('nameSubjects.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['nameSubjects.index','nameSubjects.edit',]) ? 'active' : '' }}"><i class="icon-pin"></i> <span>Subjects</span></a>
                     </li>
                 @endif
 

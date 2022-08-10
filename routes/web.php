@@ -138,10 +138,11 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('students', 'StudentRecordController');
         Route::resource('users', 'UserController');
-        Route::resource('departments', 'departmentController');
         Route::resource('classes', 'MyClassController');
         Route::resource('sections', 'SectionController');
         Route::resource('subjects', 'SubjectController');
+        Route::resource('departments', 'departmentController');
+        Route::resource('nameSubjects', 'Nsubjectcontroller');
         Route::resource('grades', 'GradeController');
         Route::resource('exams', 'ExamController');
         Route::resource('dorms', 'DormController');
