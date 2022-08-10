@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\SupportTeam;
+namespace App\Http\Controllers;
 
 use App\Helpers\Qs;
 use App\Helpers\Mk;
@@ -16,14 +16,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class StudentRecordController extends Controller
+class AdmissionController extends Controller
 {
     protected $loc, $my_class, $user, $student;
 
    public function __construct(LocationRepo $loc, MyClassRepo $my_class, UserRepo $user, StudentRepo $student)
    {
-       $this->middleware('teamSA', ['only' => ['edit','update', 'reset_pass', 'create', 'store', 'graduated'] ]);
-       $this->middleware('super_admin', ['only' => ['destroy',] ]);
+    //    $this->middleware('teamSA', ['only' => ['edit','update', 'reset_pass', 'create', 'store', 'graduated'] ]);
+    //    $this->middleware('super_admin', ['only' => ['destroy',] ]);
 
         $this->loc = $loc;
         $this->my_class = $my_class;
@@ -41,12 +41,13 @@ class StudentRecordController extends Controller
 
     public function create()
     {
+        // echo "Admission";
         $data['my_classes'] = $this->my_class->all();
         $data['parents'] = $this->user->getUserByType('parent');
         $data['dorms'] = $this->student->getAllDorms();
         $data['states'] = $this->loc->getStates();
         $data['nationals'] = $this->loc->getAllNationals();
-        return view('pages.support_team.students.add', $data);
+        return view('pages.support_team.admission.add', $data);
     }
 
     public function store(StudentRecordCreate $req)

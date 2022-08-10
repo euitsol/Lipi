@@ -1,11 +1,13 @@
 <?php
 // use App\Http\Controllers\SupportTeam\StudentRecordController;
+Route::resource('admission', 'AdmissionController');
 Auth::routes();
 
 
 Route::get('/privacy-policy', 'HomeController@privacy_policy')->name('privacy_policy');
 Route::get('/terms-of-use', 'HomeController@terms_of_use')->name('terms_of_use');
-Route::resource('admission', 'AdmissionController');
+
+
 
 Route::group(['middleware' => 'auth'], function () {
 

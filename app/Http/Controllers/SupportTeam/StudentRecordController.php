@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class AdmissionController extends Controller
+class StudentRecordController extends Controller
 {
     protected $loc, $my_class, $user, $student;
 
