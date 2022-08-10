@@ -42,7 +42,7 @@ class departmentController extends Controller
         $insert->department_name =$request->name;
         $insert->save();
 
-        dd($request->name) ;
+        // dd($request->name) ;
         return Qs::jsonStoreOk();
         // return redirect()->route('departments.index')->with('insert');
     }
