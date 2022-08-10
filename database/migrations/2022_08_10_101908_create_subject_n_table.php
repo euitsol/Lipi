@@ -17,7 +17,7 @@ class CreateSubjectNTable extends Migration
             $table->id();
             $table->unsignedBigInteger('departments_id');
             $table->string('subject_name');
-            $table->string('short_name');
+            $table->string('short_name')->nullable();
             $table->timestamps();
             $table->foreign('departments_id')
                     ->references('id')

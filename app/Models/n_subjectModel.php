@@ -12,7 +12,7 @@ class n_subjectModel extends Model
 
     public function departments(){
 
-        return belongsTo(departments::class,"departments_id");
+        return $this->belongsTo(departmentModel::class,"departments_id");
         // return $this->belongsTo(User::class, 'foreign_key', 'other_key');
     }
 }
