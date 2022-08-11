@@ -21,6 +21,7 @@ class StudentRecordCreate extends FormRequest
     public function rules()
     {
         return [
+
             'name' => 'required|string|min:6|max:150',
             'adm_no' => 'sometimes|nullable|alpha_num|min:3|max:150|unique:student_records',
             'gender' => 'required|string',
@@ -37,6 +38,7 @@ class StudentRecordCreate extends FormRequest
             'section_id' => 'required',
             'my_parent_id' => 'sometimes|nullable',
             'dorm_id' => 'sometimes|nullable',
+            
         ];
     }
 

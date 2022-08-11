@@ -53,6 +53,7 @@ class AdmissionController extends Controller
     public function store(StudentRecordCreate $req)
     {
        $data =  $req->only(Qs::getUserRecord());
+    //    dd($data);
        $sr =  $req->only(Qs::getStudentData());
 
         $ct = $this->my_class->findTypeByClass($req->my_class_id)->code;
@@ -84,6 +85,7 @@ class AdmissionController extends Controller
         $this->student->createRecord($sr); // Create Student
         return Qs::jsonStoreOk();
     }
+
 
     public function listByClass($class_id)
     {
