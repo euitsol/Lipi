@@ -85,6 +85,7 @@ class AdmissionController extends Controller
         return Qs::jsonStoreOk();
     }
 
+    
     public function listByClass($class_id)
     {
         $data['my_class'] = $mc = $this->my_class->getMC(['id' => $class_id])->first();
