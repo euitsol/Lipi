@@ -24,7 +24,7 @@
                         <div class="form-group row">
                             <label for="slug" class="col-lg-3 col-form-label font-weight-semibold">Short Name <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input id="slug" required name="short_name" value="{{ old('short_name') }}" type="text" class="form-control" placeholder="Eg. B.Eng">
+                                <input id="slug" required name="short_name" value="{{ $data_update->short_name}}" type="text" class="form-control" placeholder="Eg. B.Eng">
                             </div>
                         </div>
 
