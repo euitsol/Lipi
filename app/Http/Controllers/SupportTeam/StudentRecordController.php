@@ -51,6 +51,7 @@ class StudentRecordController extends Controller
 
     public function store(StudentRecordCreate $req)
     {
+        dd($req);
        $data =  $req->only(Qs::getUserRecord());
        $sr =  $req->only(Qs::getStudentData());
 

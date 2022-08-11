@@ -37,6 +37,7 @@ class departmentController extends Controller
      */
     public function store(Request $request)
     {
+        
         // echo "store";
         $insert = new departmentModel;
         $insert->department_name =$request->name;

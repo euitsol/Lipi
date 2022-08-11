@@ -8,7 +8,7 @@
                 {!! Qs::getPanelOptions() !!}
             </div>
 
-            <form id="ajax-reg" method="post" enctype="multipart/form-data" class="wizard-form steps-validation" action="{{ route('admission.store') }}" data-fouc>
+            <form id="ajax-reg" method="post" enctype="multipart/form-data" class="wizard-form steps-validation" action="{{ route('students.store') }}" data-fouc>
                @csrf
                 <h6>Personal data</h6>
                 <fieldset>
