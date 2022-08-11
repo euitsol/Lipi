@@ -76,8 +76,10 @@ class Nsubjectcontroller extends Controller
     {
         //
         $data_update = n_subjectModel::find($id);
+        $department_db = departmentModel::all();
 
-        return view("pages.support_team.Nsubject.edit",compact("data_update"));
+        return view("pages.support_team.Nsubject.edit",compact("data_update","department_db"));
+        // return view("pages.support_team.Nsubject.edit",compact("department_db"));
     }
 
     /**
@@ -90,8 +92,11 @@ class Nsubjectcontroller extends Controller
     public function update(Request $request, $id)
     {
         //
-        $update = n_subjectModel::find($id);
+      $update = n_subjectModel::find($id);
+    //   $update = departmentModel::find($id);
+      $update->departments_id = $request->departments_id;
       $update->subject_name = $request->name;
+      $update->short_name = $request->short_name;
       $update->save();
       return Qs::jsonUpdateOk();
     }
