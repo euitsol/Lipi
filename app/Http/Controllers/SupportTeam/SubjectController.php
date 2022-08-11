@@ -28,7 +28,7 @@ class SubjectController extends Controller
         $d['teachers'] = $this->user->getUserByType('teacher');
         $d['subjects'] = $this->my_class->getAllSubjects();
 
-        return view('pages.support_team.subjects.index', $d);
+        return view('pages.support_team.semester_details.index', $d);
     }
 
     public function store(SubjectCreate $req)
@@ -45,7 +45,7 @@ class SubjectController extends Controller
         $d['my_classes'] = $this->my_class->all();
         $d['teachers'] = $this->user->getUserByType('teacher');
 
-        return is_null($sub) ? Qs::goWithDanger('subjects.index') : view('pages.support_team.subjects.edit', $d);
+        return is_null($sub) ? Qs::goWithDanger('semester_details.index') : view('pages.support_team.semester_details.edit', $d);
     }
 
     public function update(SubjectUpdate $req, $id)

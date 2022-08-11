@@ -25,7 +25,7 @@
                 <div class="tab-pane show  active fade" id="new-subject">
                     <div class="row">
                         <div class="col-md-6">
-                            <form class="ajax-store" method="post" action="{{ route('subjects.store') }}">
+                            <form class="ajax-store" method="post" action="{{ route('semester_details.store') }}">
                                 @csrf
                                 <div class="form-group row">
                                     <label for="name" class="col-lg-3 col-form-label font-weight-semibold">Name <span class="text-danger">*</span></label>

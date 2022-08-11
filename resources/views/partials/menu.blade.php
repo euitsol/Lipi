@@ -151,7 +151,7 @@
                     </li>
                     {{--Manage Subjects--}}
                     <li class="nav-item">
-                        <a href="{{ route('subjects.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjects.index','subjects.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester Details</span></a>
+                        <a href="{{ route('semester_details.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['semester_details.index','semester_details.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester Details</span></a>
                     </li>
 
                     {{--Manage Dorms--}}
