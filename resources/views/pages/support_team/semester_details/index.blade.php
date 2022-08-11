@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="name" class="col-lg-3 col-form-label font-weight-semibold">Name <span class="text-danger">*</span></label>
+                                    <label for="name" class="col-lg-3 col-form-label font-weight-semibold">Subject Name <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
                                         <input id="name" name="name" value="{{ old('name') }}" required type="text" class="form-control" placeholder="Name of Subject">
                                     </div>

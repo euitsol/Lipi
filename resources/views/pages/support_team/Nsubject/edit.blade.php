@@ -18,11 +18,11 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label font-weight-semibold">Department Name <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                 <select name="departments_id">
+                                 <select class="form-control select" name="departments_id" id="departments_id">
                                     <option value="">Select Department</option>
                                     @foreach($department_db as $data)
                                     <option value="{{$data->id}}">{{$data->department_name}}</option>
-                                   
+
                                     @endforeach
                                  </select>
                             </div>
