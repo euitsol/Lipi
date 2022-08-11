@@ -8,6 +8,7 @@ use App\Http\Requests\Subject\SubjectUpdate;
 use App\Repositories\MyClassRepo;
 use App\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
+use App\Models\departmentModel;
 
 class SubjectController extends Controller
 {
@@ -24,6 +25,7 @@ class SubjectController extends Controller
 
     public function index()
     {
+        $d['department_db'] = departmentModel::all();
         $d['my_classes'] = $this->my_class->all();
         $d['teachers'] = $this->user->getUserByType('teacher');
         $d['subjects'] = $this->my_class->getAllSubjects();
