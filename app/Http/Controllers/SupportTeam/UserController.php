@@ -82,6 +82,7 @@ class UserController extends Controller
 
         $pass = $req->password ?: $user_type;
         $data['password'] = Hash::make($pass);
+        
 
         if($req->hasFile('photo')) {
             $photo = $req->file('photo');

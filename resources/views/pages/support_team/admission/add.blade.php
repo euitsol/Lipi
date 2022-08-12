@@ -259,10 +259,10 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="nal_id">Nationality: <span class="text-danger">*</span></label>
-                                    <select data-placeholder="Choose..." required name="nal_id" id="nal_id" class="select-search form-control">
+                                    <select data-placeholder="Choose..." required name="nationality" id="nal_id" class="select-search form-control">
                                         <option value=""></option>
                                         @foreach($nationals as $nal)
-                                            <option {{ (old('nal_id') == $nal->id ? 'selected' : '') }} value="{{ $nal->id }}">{{ $nal->name }}</option>
+                                            <option {{ (old('nationality') == $nal->id ? 'selected' : '') }} value="{{ $nal->id }}">{{ $nal->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -271,22 +271,14 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="bg_id">Blood Group: </label>
-                                    <select class="select form-control" id="bg_id" name="bg_id" data-fouc data-placeholder="Choose..">
+                                    <select class="select form-control" id="bg_id" name="blood_group_name" data-fouc data-placeholder="Choose..">
                                         <option value=""></option>
                                         @foreach(App\Models\BloodGroup::all() as $bg)
-                                            <option {{ (old('bg_id') == $bg->id ? 'selected' : '') }} value="{{ $bg->id }}">{{ $bg->name }}</option>
+                                            <option {{ (old('blood_roup_name') == $bg->id ? 'selected' : '') }} value="{{ $bg->id }}">{{ $bg->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-
-                            {{-- <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="d-block">Upload Passport Photo:</label>
-                                    <input value="{{ old('photo') }}" accept=".pdf,.png,.jpg" type="file" name="photo" class="form-input-styled" data-fouc>
-                                    <span class="form-text text-muted">Accepted Images: jpeg, png. Max file size 2Mb</span>
-                                </div>
-                            </div> --}}
                         </div>
                     </fieldset>
 
@@ -319,7 +311,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="my_parent_id">Division: <span class="text-danger">*</span></label>
-                                    <select data-placeholder="Choose..." required name="my_parent_id"  id="my_parent_id" class="form-control">
+                                    <select data-placeholder="Choose..." required name="division"  id="my_parent_id" class="form-control">
                                         <option  value="">Select Your Division</option>
                                         <option  value="Science">Science</option>
                                         <option  value="Bussiness Studies">Bussiness Studies</option>
@@ -331,7 +323,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="year_admitted">Board: <span class="text-danger">*</span></label>
-                                    <select data-placeholder="Choose..." required name="year_admitted" id="year_admitted" class="form-control">
+                                    <select data-placeholder="Choose..." required name="board" id="year_admitted" class="form-control">
                                         <option value="">Select Education Board</option>
                                         <option value="Dhaka">Dhaka</option>
                                         <option value="Jeshore">Jeshore</option>
@@ -363,8 +355,8 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>C.G.P: <span class="text-danger">*</span></label>
-                                    <input type="text" required name="CGP" placeholder="Enter Your C.G.P" class="form-control" value="{{ old('CGP') }}">
+                                    <label>G.P.A: <span class="text-danger">*</span></label>
+                                    <input type="text" required name="gpa" placeholder="Enter Your G.P.A" class="form-control" value="{{ old('CGP') }}">
                                 </div>
                             </div>
                         </div>
@@ -377,7 +369,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="d-block">Upload Registration Card: <span class="text-danger">*</span></label>
-                                    <input value="{{ old('reg_card_photo') }}" required accept=".pdf,.png,.jpg" type="file" name="reg_card_photo" class="form-input-styled" data-fouc>
+                                    <input value="{{ old('reg_card_photo') }}" required accept=".pdf,.png,.jpg" type="file" name="reg_card" class="form-input-styled" data-fouc>
                                     <span class="form-text text-muted">Accepted Images: jpeg, png. Max file size 2Mb</span>
                                 </div>
                             </div>
@@ -401,6 +393,8 @@
                         </div>
                     </fieldset>
 
+                    {{-- <button type="submit">Submit</button> --}}
+
                 </form>
             </div>
 
@@ -416,7 +410,56 @@
     </div>
 </div>
 
-@include('partials.inc_bottom')
+<!-- Theme JS files -->
+<script src="{{ asset('global_assets/js/plugins/extensions/jquery_ui/interactions.min.js') }} "></script>
+<script src="{{ asset('global_assets/js/plugins/forms/selects/select2.min.js') }} "></script>
+
+{{--Forms--}}
+<script src="{{ asset('global_assets/js/plugins/forms/wizards/steps.min.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/forms/inputs/inputmask.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/forms/validation/validate.min.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/extensions/cookie.js') }}"></script>
+
+{{--Notify--}}
+<script type="text/javascript" src="{{ asset('global_assets/js/plugins/notifications/sweet_alert2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('global_assets/js/plugins/notifications/pnotify.min.js') }}"></script>
+
+{{--DataTables--}}
+<script src="{{ asset('global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/tables/datatables/extensions/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/tables/datatables/extensions/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/tables/datatables/extensions/pdfmake/vfs_fonts.min.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/tables/datatables/extensions/buttons.min.js') }}"></script>
+
+{{--Date Pickers--}}
+<script src="{{ asset('global_assets/js/plugins/ui/moment/moment.min.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/pickers/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('global_assets/js/plugins/pickers/pickadate/legacy.js') }}"></script>
+
+{{--Uploaders--}}
+<script src="{{ asset('global_assets/js/plugins/uploaders/fileinput/fileinput.min.js') }}"></script>
+
+{{--Calendar--}}
+<script src="{{ asset('global_assets/js/plugins/ui/fullcalendar/fullcalendar.min.js') }}"></script>
+
+
+<script src=" {{ asset('assets/js/app.js') }} "></script>
+<script src="{{ asset('global_assets/js/demo_pages/form_wizard.js') }}"></script>
+<script src="{{ asset('global_assets/js/demo_pages/form_select2.js') }}"></script>
+<script src="{{ asset('global_assets/js/demo_pages/datatables_extension_buttons_html5.js') }}"></script>
+<script src="{{ asset('global_assets/js/demo_pages/uploader_bootstrap.js') }}"></script>
+<script src="{{ asset('global_assets/js/demo_pages/fullcalendar_basic.js') }}"></script>
+
+<!-- /theme JS files -->
+
+{{-- <script src=" {{ asset('assets/js/custom.js') }} "></script> --}}
+
+
+{{-- @include('partials.js.custom_js') --}}
+
+
+{{-- @include('partials.inc_bottom') --}}
 @yield('scripts')
 </body>
 </html>
