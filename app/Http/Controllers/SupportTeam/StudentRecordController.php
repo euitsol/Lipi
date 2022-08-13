@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class AdmissionController extends Controller
+class StudentRecordController extends Controller
 {
     protected $loc, $my_class, $user, $student;
 
@@ -51,6 +51,7 @@ class AdmissionController extends Controller
 
     public function store(StudentRecordCreate $req)
     {
+        dd($req);
        $data =  $req->only(Qs::getUserRecord());
        $sr =  $req->only(Qs::getStudentData());
 
