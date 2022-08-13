@@ -139,7 +139,6 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::resource('students', 'StudentRecordController');
-        
         Route::resource('users', 'UserController');
         Route::resource('teachers', 'TeacherController');
         Route::resource('classes', 'MyClassController');
@@ -151,6 +150,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('exams', 'ExamController');
         Route::resource('dorms', 'DormController');
         Route::resource('payments', 'PaymentController');
+        // Nobir classRome
+        Route::resource('classRoom', 'ClassRoomController');
 
     });
 

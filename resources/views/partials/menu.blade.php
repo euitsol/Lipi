@@ -161,6 +161,10 @@
 
                     {{--Manage Dorms--}}
                     <li class="nav-item">
+                        <a href="{{ route('classRoom.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classRoom.index','classRoom.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Class Room</span></a>
+                    </li>
+                    {{--Manage Dorms--}}
+                    <li class="nav-item">
                         <a href="{{ route('dorms.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['dorms.index','dorms.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Dormitories</span></a>
                     </li>
 
