@@ -38,6 +38,7 @@ class CreateAdmissionTabel extends Migration
             $table->string('reg_card');
             $table->string('marksheet');
             $table->string('photo');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

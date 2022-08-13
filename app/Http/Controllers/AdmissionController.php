@@ -129,6 +129,7 @@ class AdmissionController extends Controller
     $insert->roll =  $req->roll;
     $insert->registration_no =  $req->registration_no;
     $insert->gpa =  $req->gpa;
+    $insert->status =  "not approved";
 
     $data['code'] = strtoupper(Str::random(10));
 
@@ -136,31 +137,48 @@ class AdmissionController extends Controller
         $reg_card = $req->file('reg_card');
         $f = Qs::getFileMetaData($reg_card);
         $f['name_reg_card'] = 'nobir_'.$data['code'].'.' . $f['ext'];
-        // echo $data['code']."<br>";
-        // echo Qs::getUploadPath('student').$data['code'];
-        // storeAs(Qs::getUploadPath('student').$data['code'], $f['name_reg_card']);
         $f['path_reg_card'] = $reg_card-> storeAs(Qs::getUploadPath('student').$data['code'], $f['name_reg_card']);
-        // echo $f['path_reg_card']."<br>";
         $insert->reg_card = asset('storage/' . $f['path_reg_card']);
     }
     if($req->hasFile('marksheet')) {
         $marksheet = $req->file('marksheet');
         $f = Qs::getFileMetaData($marksheet);
-        $f['name_marksheet'] = 'nobir_'.$req->name.'.' . $f['ext'];
+        $f['name_marksheet'] = 'nobir_'.$data['code'].'.' . $f['ext'];
         $f['path_marksheet'] = $marksheet->storeAs(Qs::getUploadPath('student').$data['code'], $f['name_marksheet']);
         $insert->marksheet = asset('storage/' . $f['path_marksheet']);
     }
     if($req->hasFile('photo')) {
         $photo = $req->file('photo');
         $f = Qs::getFileMetaData($photo);
-        $f['name'] = 'nobir_'.$req->name.'.' . $f['ext'];
+        $f['name'] = 'nobir_'.$data['code'].'.' . $f['ext'];
         $f['path'] = $photo->storeAs(Qs::getUploadPath('student').$data['code'], $f['name']);
         $insert->photo = asset('storage/' . $f['path']);
     }
 
+
+    $query_roll_validation = admissionModel::where("roll","=",$req->roll)
+                                        ->get();
+    $query_reg_validation = admissionModel::where("registration_no","=",$req->registration_no)
+                                        ->get();
+ if(count($query_roll_validation)>0){
+    $exist_aler_msg = "Please Insert Correct Roll Number";
+    return view("pages.support_team.admission.back")->with("message","Please Insert Correct Roll Number");
+    // view("pages.support_team.admission.back",compact("xist_aler_msg"))
+ }
+ elseif(count($query_reg_validation)>0){
+    $exist_aler_msg = "Please Insert Correct Registration Number";
+    return view("pages.support_team.admission.back")->with("message","Please Insert Correct Registration Number");
+    // view("pages.support_team.admission.back",compact("exist_aler_msg"))
+ }
+ else{
+    $insert->save();
+    return view("pages.support_team.admission.admission_info_show");
+ }
+
+
     // $admission_field = [$req->name,$req->father_name,$req->mother_name,$req->present_address,$req->address,$req->email,$req->gender,$req->phone,$req->phone2,$req->dob,$req->Quota,$req->nationality,$req->blood_roup_name,$req->exam_name,$req->passing_year,$req->division,$req->board,$req->roll,$req->registration_no, $req->gpa,$data['reg_card'],$data['marksheet'],$data['photo']];
 
-    $insert->save();
+
 
 // admissionModel::create($req->all());
 
@@ -181,7 +199,7 @@ class AdmissionController extends Controller
         // $sr['session'] = Qs::getSetting('current_session');
 
         // $this->student->createRecord($sr); // Create Student
-        return Qs::jsonStoreOk();
+
     }
 
 
