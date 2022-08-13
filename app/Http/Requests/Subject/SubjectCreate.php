@@ -21,19 +21,20 @@ class SubjectCreate extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3',
+            'departments_id' => 'required',
             'my_class_id' => 'required',
             'teacher_id' => 'required',
-            'slug' => 'nullable|string|min:3',
+            'subject_id' => 'required'
         ];
     }
 
     public function attributes()
     {
         return  [
-            'my_class_id' => 'Class',
-            'teacher_id' => 'Teacher',
-            'slug' => 'Short Name',
+            'departments_id' => 'required',
+            'my_class_id' => 'required',
+            'teacher_id' => 'required',
+            'subject_id' => 'required'
         ];
     }
 

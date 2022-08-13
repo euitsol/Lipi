@@ -21,6 +21,7 @@
                             <tr>
                                 <th>S/N</th>
                                 <th>Name</th>
+                                <th>Short Name</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -29,6 +30,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $c->department_name }}</td>
+                                    <td>{{ $c->short_name }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">
                                             <div class="dropdown">
@@ -73,11 +75,19 @@
                             <form class="ajax-store" method="post" action="{{ route('departments.store') }}">
                                 @csrf
                                 <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label font-weight-semibold">Name <span class="text-danger">*</span></label>
+                                    <label class="col-lg-3 col-form-label font-weight-semibold">Department Name <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
                                         <input name="name" value="{{ old('name') }}" required type="text" class="form-control" placeholder="Name of Deparment">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label for="slug" class="col-lg-3 col-form-label font-weight-semibold">Short Name <span class="text-danger">*</span></label>
+                                    <div class="col-lg-9">
+                                        <input id="slug" required name="short_name" value="{{ old('short_name') }}" type="text" class="form-control" placeholder="Eg. B.Eng">
+                                    </div>
+                                </div>
+
                                 <div class="text-right">
                                     <button id="ajax-btn" type="submit" class="btn btn-primary">Submit form <i class="icon-paperplane ml-2"></i></button>
                                 </div>
