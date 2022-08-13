@@ -90,8 +90,13 @@
                     </li>
                 @endif
 
-                {{--Manage Students--}}
+
                 @if(Qs::userIsTeamSAT())
+                {{--Manage Teachers--}}
+                <li class="nav-item">
+                    <a href="{{ route('teachers.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['teachers.index', 'teachers.show', 'teachers.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Teachers</span></a>
+                </li>
+                {{--Manage Students--}}
                     <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['students.create', 'students.list', 'students.edit', 'students.show', 'students.promotion', 'students.promotion_manage', 'students.graduated']) ? 'nav-item-expanded nav-item-open' : '' }} ">
                         <a href="#" class="nav-link"><i class="icon-users"></i> <span> Students</span></a>
 
@@ -151,7 +156,7 @@
                     </li>
                     {{--Manage Subjects--}}
                     <li class="nav-item">
-                        <a href="{{ route('subjects.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjects.index','subjects.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester Details</span></a>
+                        <a href="{{ route('semester_details.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['semester_details.index','semester_details.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester Details</span></a>
                     </li>
 
                     {{--Manage Dorms--}}

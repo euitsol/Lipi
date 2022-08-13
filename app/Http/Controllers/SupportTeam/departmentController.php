@@ -41,6 +41,7 @@ class departmentController extends Controller
         // echo "store";
         $insert = new departmentModel;
         $insert->department_name =$request->name;
+        $insert->short_name =$request->short_name;
         $insert->save();
 
         // dd($request->name) ;
@@ -83,6 +84,7 @@ class departmentController extends Controller
     {
       $update = departmentModel::find($id);
       $update->department_name= $request->name;
+      $update->short_name = $request->short_name;
       $update->save();
       return Qs::jsonUpdateOk();
     //   return redirect()->route("departments.index")->with("updated");

@@ -25,22 +25,20 @@
                 <div class="tab-pane show  active fade" id="new-subject">
                     <div class="row">
                         <div class="col-md-6">
-                            <form class="ajax-store" method="post" action="{{ route('subjects.store') }}">
+                            <form class="ajax-store" method="post" action="{{ route('semester_details.store') }}">
                                 @csrf
                                 <div class="form-group row">
-                                    <label for="name" class="col-lg-3 col-form-label font-weight-semibold">Name <span class="text-danger">*</span></label>
+                                    <label for="my_class_id" class="col-lg-3 col-form-label font-weight-semibold">Department Name <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
-                                        <input id="name" name="name" value="{{ old('name') }}" required type="text" class="form-control" placeholder="Name of Subject">
+                                         <select required data-placeholder="Select Department" class="form-control select" name="departments_id" id="departments_id">
+                                            <option value="">Select Department</option>
+                                            @foreach($department_db as $data)
+                                            <option value="{{$data->id}}">{{$data->department_name}}</option>
+
+                                            @endforeach
+                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="form-group row">
-                                    <label for="slug" class="col-lg-3 col-form-label font-weight-semibold">Short Name <span class="text-danger">*</span></label>
-                                    <div class="col-lg-9">
-                                        <input id="slug" required name="slug" value="{{ old('slug') }}" type="text" class="form-control" placeholder="Eg. B.Eng">
-                                    </div>
-                                </div>
-
                                 <div class="form-group row">
                                     <label for="my_class_id" class="col-lg-3 col-form-label font-weight-semibold">Select Semester <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
@@ -50,6 +48,19 @@
                                                 <option {{ old('my_class_id') == $c->id ? 'selected' : '' }} value="{{ $c->id }}">{{ $c->name }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="my_class_id" class="col-lg-3 col-form-label font-weight-semibold">Subject Name <span class="text-danger">*</span></label>
+                                    <div class="col-lg-9">
+                                         <select required data-placeholder="Select Subject" class="form-control select" name="subject_id" id="subject_id">
+                                            <option value="">Select Subject</option>
+                                            @foreach($subject_db as $c)
+                                            <option value="{{$c->id}}">{{$c->subject_name}}</option>
+
+                                            @endforeach
+                                         </select>
                                     </div>
                                 </div>
 
@@ -74,25 +85,27 @@
                 </div>
 
                 @foreach($my_classes as $c)
-                    <div class="tab-pane fade" id="c{{ $c->id }}">                         <table class="table datatable-button-html5-columns">
+                    <div class="tab-pane fade" id="c{{ $c->id }}">
+                        <table class="table datatable-button-html5-columns">
                             <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Name</th>
-                                <th>Short Name</th>
-                                <th>Class</th>
+                                <th>Department Name</th>
+                                <th>Semester</th>
+                                <th>Subject</th>
                                 <th>Teacher</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($subjects->where('my_class.id', $c->id) as $s)
+                                @dd($query_semester_details)
+                            @foreach($query_semester_details as $s)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $s->name }} </td>
-                                    <td>{{ $s->slug }} </td>
-                                    <td>{{ $s->my_class->name }}</td>
-                                    <td>{{ $s->teacher->name }}</td>
+                                    <td>{{ $s->departments->department_id }} </td>
+                                    <td>{{ $s->my_classes->semester_id }} </td>
+                                    <td>{{ $s->nsubjects->subject_id }}</td>
+                                    <td>{{ $s->teacher->teacher_id }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">
                                             <div class="dropdown">
