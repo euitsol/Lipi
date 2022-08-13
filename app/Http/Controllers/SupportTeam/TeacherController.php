@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\SupportTeam;
+use Illuminate\Http\Request;
+use App\Models\Teacher;
 
 use App\Helpers\Qs;
 use App\Http\Requests\UserRequest;
@@ -12,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+// use Request;
 
 class TeacherController extends Controller
 {
@@ -64,49 +66,71 @@ class TeacherController extends Controller
         return back()->with('flash_success', __('msg.pu_reset'));
     }
 
-    public function store(UserRequest $req)
+    public function store(Request $req)
     {
-        $user_type = $this->user->findType($req->user_type)->title;
 
-        $data = $req->except(Qs::getStaffRecord());
-        $data['name'] = ucwords($req->name);
-        $data['user_type'] = $user_type;
-        $data['photo'] = Qs::getDefaultUserImage();
-        $data['code'] = strtoupper(Str::random(10));
+        $insert = new Teacher;
+        $insert->department_name = $req->department_name;
+        $insert->name =  $req->name;
+        $insert->address = $req->address;
+        $insert->email = $req->email;
+        $insert->address = $req->address;
+        $insert->username = $req->username;
+        $insert->phone = $req->phone;
+        $insert->emp_date =  $req->emp_date;
+        $insert->password =  $req->password;
+        $insert->gender =  $req->gender;
+        $insert->nationality =  $req->nationality;
+        // $insert->bg_name =  $req->bg_name;
+        // $insert->blood_group_name = $req->blood_group_name;
+        // $insert->exam_name =  $req->exam_name;
+        // $insert->passing_year = $req->passing_year;
+        // $insert->division =  $req->division;
+        // $insert->board =  $req->board;
+        // $insert->roll =  $req->roll;
+        // $insert->registration_no =  $req->registration_no;
+        // $insert->gpa =  $req->gpa;
+        // $user_type = $this->user->findType($req->user_type)->title;
 
-        $user_is_staff = in_array($user_type, Qs::getStaff());
-        $user_is_teamSA = in_array($user_type, Qs::getTeamSA());
+        // $data = $req->except(Qs::getStaffRecord());
+        // $data['name'] = ucwords($req->name);
+        // $data['user_type'] = $user_type;
+        // $data['photo'] = Qs::getDefaultUserImage();
+        // $data['code'] = strtoupper(Str::random(10));
 
-        $staff_id = Qs::getAppCode().'/STAFF/'.date('Y/m', strtotime($req->emp_date)).'/'.mt_rand(1000, 9999);
-        $data['username'] = $uname = ($user_is_teamSA) ? $req->username : $staff_id;
+        // $user_is_staff = in_array($user_type, Qs::getStaff());
+        // $user_is_teamSA = in_array($user_type, Qs::getTeamSA());
 
-        $pass = $req->password ?: $user_type;
-        $data['password'] = Hash::make($pass);
+        // $staff_id = Qs::getAppCode().'/STAFF/'.date('Y/m', strtotime($req->emp_date)).'/'.mt_rand(1000, 9999);
+        // $data['username'] = $uname = ($user_is_teamSA) ? $req->username : $staff_id;
 
-        if($req->hasFile('photo')) {
-            $photo = $req->file('photo');
-            $f = Qs::getFileMetaData($photo);
-            $f['name'] = 'photo.' . $f['ext'];
-            $f['path'] = $photo->storeAs(Qs::getUploadPath($user_type).$data['code'], $f['name']);
-            $data['photo'] = asset('storage/' . $f['path']);
-        }
+        // $pass = $req->password ?: $user_type;
+        // $data['password'] = Hash::make($pass);
 
-        /* Ensure that both username and Email are not blank*/
-        if(!$uname && !$req->email){
-            return back()->with('pop_error', __('msg.user_invalid'));
-        }
+        // if($req->hasFile('photo')) {
+        //     $photo = $req->file('photo');
+        //     $f = Qs::getFileMetaData($photo);
+        //     $f['name'] = 'photo.' . $f['ext'];
+        //     $f['path'] = $photo->storeAs(Qs::getUploadPath($user_type).$data['code'], $f['name']);
+        //     $data['photo'] = asset('storage/' . $f['path']);
+        // }
 
-        $user = $this->user->create($data); // Create User
+        // /* Ensure that both username and Email are not blank*/
+        // if(!$uname && !$req->email){
+        //     return back()->with('pop_error', __('msg.user_invalid'));
+        // }
 
-        /* CREATE STAFF RECORD */
-        if($user_is_staff){
-            $d2 = $req->only(Qs::getStaffRecord());
-            $d2['user_id'] = $user->id;
-            $d2['code'] = $staff_id;
-            $this->user->createStaffRecord($d2);
-        }
+        // $user = $this->user->create($data); // Create User
 
-        return Qs::jsonStoreOk();
+        // /* CREATE STAFF RECORD */
+        // if($user_is_staff){
+        //     $d2 = $req->only(Qs::getStaffRecord());
+        //     $d2['user_id'] = $user->id;
+        //     $d2['code'] = $staff_id;
+        //     $this->user->createStaffRecord($d2);
+        // }
+
+        // return Qs::jsonStoreOk();
     }
 
     public function update(UserRequest $req, $id)
