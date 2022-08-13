@@ -7,7 +7,7 @@ use Eloquent;
 
 class Subject extends Eloquent
 {
-    protected $fillable = ['name', 'my_class_id', 'teacher_id', 'slug'];
+    protected $fillable = ['my_class_id', 'teacher_id','department_id','subject_id'];
 
     public function my_class()
     {
@@ -17,5 +17,13 @@ class Subject extends Eloquent
     public function teacher()
     {
         return $this->belongsTo(User::class, 'teacher_id');
+    }
+    public function departments()
+    {
+        return $this->belongsTo(departmentModel::class,"departments_id");
+    }
+    public function nsubjects()
+    {
+        return $this->belongsTo(n_subjectModel::class, 'subject_id');
     }
 }
