@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+// use Illuminate\Foundation\Http\FormRequest;
+// use App\Http\Controllers\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Helpers\Qs;
 use App\Helpers\Mk;
 use App\Http\Requests\Student\StudentRecordCreate;
@@ -10,6 +13,7 @@ use App\Repositories\LocationRepo;
 use App\Repositories\MyClassRepo;
 use App\Repositories\StudentRepo;
 use App\Repositories\UserRepo;
+use App\Models\admissionModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,39 +54,133 @@ class AdmissionController extends Controller
         return view('pages.support_team.admission.add', $data);
     }
 
-    public function store(StudentRecordCreate $req)
+    public function store(Request $req)
     {
-       $data =  $req->only(Qs::getUserRecord());
+    //    $data =  $req->only(Qs::getUserRecord());
     //    dd($data);
-       $sr =  $req->only(Qs::getStudentData());
+    //    $sr =  $req->only(Qs::getStudentData());
 
-        $ct = $this->my_class->findTypeByClass($req->my_class_id)->code;
+        // $ct = $this->my_class->findTypeByClass($req->my_class_id)->code;
        /* $ct = ($ct == 'J') ? 'JSS' : $ct;
         $ct = ($ct == 'S') ? 'SS' : $ct;*/
+// $this->validate($req,[
+//         'name' => 'required|string|min:6|max:150',
+//         'father_name' => 'sometimes|nullable|alpha_num|min:3|max:150|unique:student_records',
+//         'mother_name' => 'required|string',
+//         'present_address' => 'required|string',
+//         'phone2' => 'required',
+//         'address' => 'required',
+//         'email' => 'sometimes|nullable|email|max:100|unique:users',
+//         'gender' => 'required',
+//         'phone' => 'required',
+//         'dob' => 'required',
+//         'nationality' => 'required',
+//         'exam_name' => 'required',
+//         'passing_year' => 'required',
+//         'division' => 'required',
+//         'board' => 'required',
+//         'roll' => 'required',
+//         'registration_no' => 'required',
+//         'gpa' => 'required',
+//         'reg_card' => 'required|mimes:jpeg,png,pdf,jpg',
+//         'marksheet' => 'required|mimes:png,jpg,jpeg,pdf',
+//         'photo' => 'photo|required|mimes:png,jpg,jpeg'
+//     ],[
+//         'name.required' => 'You have to insert your name',
+//         'father_name.required' => "Father's name required",
+//         'mother_name.required' => "Mother's name is required",
+//         'present_address.required' => 'Present address required',
+//         'address.required' => 'Permanent address is required',
+//         'email.required' => 'E-mail is required',
+//         'gender.required' => 'Select gender',
+//         'phone.required' => 'Phone number is required',
+//         'dob.required' => 'Select date of birth',
+//         'nationality.required' => 'Nationality filed is required',
+//         'exam_name.required' => 'Select exame name',
+//         'passing_year.required' => 'Select passing year',
+//         'division.required' => 'Select division',
+//         'board.required' => 'Select board',
+//         'roll.required' => 'Roll is required',
+//         'registration_no.required' => 'Registration number is required',
+//         'gpa.required' => 'G.P.A is required',
+//         'reg_card.required' => "You have to upload your registration card's photo or pdf",
+//         'marksheet.required' => "You have to upload your Marksheet's photo or pdf",
+//         'photo.required' => "You have to upload your image"
+//     ]);
+    $insert = new admissionModel ;
 
-        $data['user_type'] = 'student';
-        $data['name'] = ucwords($req->name);
-        $data['code'] = strtoupper(Str::random(10));
-        $data['password'] = Hash::make('student');
-        $data['photo'] = Qs::getDefaultUserImage();
-        $adm_no = $req->adm_no;
-        $data['username'] = strtoupper(Qs::getAppCode().'/'.$ct.'/'.$sr['year_admitted'].'/'.($adm_no ?: mt_rand(1000, 99999)));
+    $insert->name = $req->name;
+    $insert->father_name =  $req->father_name;
+    $insert->mother_name = $req->mother_name;
+    $insert->present_address = $req->present_address;
+    $insert->address = $req->address;
+    $insert->email = $req->email;
+    $insert->gender = $req->gender;
+    $insert->phone =  $req->phone;
+    $insert->phone2 =  $req->phone2;
+    $insert->dob =  $req->dob;
+    $insert->Quota =  $req->Quota;
+    $insert->nationality =  $req->nationality;
+    $insert->blood_group_name = $req->blood_group_name;
+    $insert->exam_name =  $req->exam_name;
+    $insert->passing_year = $req->passing_year;
+    $insert->division =  $req->division;
+    $insert->board =  $req->board;
+    $insert->roll =  $req->roll;
+    $insert->registration_no =  $req->registration_no;
+    $insert->gpa =  $req->gpa;
 
-        if($req->hasFile('photo')) {
-            $photo = $req->file('photo');
-            $f = Qs::getFileMetaData($photo);
-            $f['name'] = 'photo.' . $f['ext'];
-            $f['path'] = $photo->storeAs(Qs::getUploadPath('student').$data['code'], $f['name']);
-            $data['photo'] = asset('storage/' . $f['path']);
-        }
+    $data['code'] = strtoupper(Str::random(10));
 
-        $user = $this->user->create($data); // Create User
+    if($req->hasFile('reg_card')) {
+        $reg_card = $req->file('reg_card');
+        $f = Qs::getFileMetaData($reg_card);
+        $f['name_reg_card'] = 'nobir_'.$data['code'].'.' . $f['ext'];
+        // echo $data['code']."<br>";
+        // echo Qs::getUploadPath('student').$data['code'];
+        // storeAs(Qs::getUploadPath('student').$data['code'], $f['name_reg_card']);
+        $f['path_reg_card'] = $reg_card-> storeAs(Qs::getUploadPath('student').$data['code'], $f['name_reg_card']);
+        // echo $f['path_reg_card']."<br>";
+        $insert->reg_card = asset('storage/' . $f['path_reg_card']);
+    }
+    if($req->hasFile('marksheet')) {
+        $marksheet = $req->file('marksheet');
+        $f = Qs::getFileMetaData($marksheet);
+        $f['name_marksheet'] = 'nobir_'.$req->name.'.' . $f['ext'];
+        $f['path_marksheet'] = $marksheet->storeAs(Qs::getUploadPath('student').$data['code'], $f['name_marksheet']);
+        $insert->marksheet = asset('storage/' . $f['path_marksheet']);
+    }
+    if($req->hasFile('photo')) {
+        $photo = $req->file('photo');
+        $f = Qs::getFileMetaData($photo);
+        $f['name'] = 'nobir_'.$req->name.'.' . $f['ext'];
+        $f['path'] = $photo->storeAs(Qs::getUploadPath('student').$data['code'], $f['name']);
+        $insert->photo = asset('storage/' . $f['path']);
+    }
 
-        $sr['adm_no'] = $data['username'];
-        $sr['user_id'] = $user->id;
-        $sr['session'] = Qs::getSetting('current_session');
+    // $admission_field = [$req->name,$req->father_name,$req->mother_name,$req->present_address,$req->address,$req->email,$req->gender,$req->phone,$req->phone2,$req->dob,$req->Quota,$req->nationality,$req->blood_roup_name,$req->exam_name,$req->passing_year,$req->division,$req->board,$req->roll,$req->registration_no, $req->gpa,$data['reg_card'],$data['marksheet'],$data['photo']];
 
-        $this->student->createRecord($sr); // Create Student
+    $insert->save();
+
+// admissionModel::create($req->all());
+
+        // $data['user_type'] = 'student';
+        // $data['name'] = ucwords($req->name);
+        // $data['code'] = strtoupper(Str::random(10));
+        // $data['password'] = Hash::make('student');
+        // $data['photo'] = Qs::getDefaultUserImage();
+        // $adm_no = $req->adm_no;
+        // $data['username'] = strtoupper(Qs::getAppCode().'/'.$ct.'/'.$sr['year_admitted'].'/'.($adm_no ?: mt_rand(1000, 99999)));
+
+
+
+        // $user = $this->user->create($data); // Create User
+
+        // $sr['adm_no'] = $data['username'];
+        // $sr['user_id'] = $user->id;
+        // $sr['session'] = Qs::getSetting('current_session');
+
+        // $this->student->createRecord($sr); // Create Student
         return Qs::jsonStoreOk();
     }
 
