@@ -143,14 +143,14 @@ class AdmissionController extends Controller
     if($req->hasFile('marksheet')) {
         $marksheet = $req->file('marksheet');
         $f = Qs::getFileMetaData($marksheet);
-        $f['name_marksheet'] = 'nobir_'.$req->name.'.' . $f['ext'];
+        $f['name_marksheet'] = 'nobir_'.$data['code'].'.' . $f['ext'];
         $f['path_marksheet'] = $marksheet->storeAs(Qs::getUploadPath('student').$data['code'], $f['name_marksheet']);
         $insert->marksheet = asset('storage/' . $f['path_marksheet']);
     }
     if($req->hasFile('photo')) {
         $photo = $req->file('photo');
         $f = Qs::getFileMetaData($photo);
-        $f['name'] = 'nobir_'.$req->name.'.' . $f['ext'];
+        $f['name'] = 'nobir_'.$data['code'].'.' . $f['ext'];
         $f['path'] = $photo->storeAs(Qs::getUploadPath('student').$data['code'], $f['name']);
         $insert->photo = asset('storage/' . $f['path']);
     }

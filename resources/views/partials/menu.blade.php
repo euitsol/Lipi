@@ -159,9 +159,13 @@
                         <a href="{{ route('semester_details.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['semester_details.index','semester_details.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester Details</span></a>
                     </li>
 
-                    {{--Manage Dorms--}}
+                    {{--Manage Class Room--}}
                     <li class="nav-item">
                         <a href="{{ route('classRoom.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classRoom.index','classRoom.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Class Room</span></a>
+                    </li>
+                    {{--Manage Notice--}}
+                    <li class="nav-item">
+                        <a href="{{ route('notice.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['notice.index','notice.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Notice</span></a>
                     </li>
                     {{--Manage Dorms--}}
                     <li class="nav-item">
