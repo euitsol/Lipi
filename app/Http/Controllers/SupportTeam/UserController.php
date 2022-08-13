@@ -64,6 +64,7 @@ class UserController extends Controller
         return back()->with('flash_success', __('msg.pu_reset'));
     }
 
+    
     public function store(UserRequest $req)
     {
         $user_type = $this->user->findType($req->user_type)->title;
@@ -82,7 +83,7 @@ class UserController extends Controller
 
         $pass = $req->password ?: $user_type;
         $data['password'] = Hash::make($pass);
-        
+
 
         if($req->hasFile('photo')) {
             $photo = $req->file('photo');

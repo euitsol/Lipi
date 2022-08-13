@@ -181,7 +181,8 @@
                                     <input value="{{ old('father_name') }}" required type="text" name="father_name" placeholder="Father's Name" class="form-control">
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Mother's Name: <span class="text-danger">*</span></label>
@@ -196,25 +197,34 @@
                                     <input value="{{ old('present_address') }}" required  class="form-control" placeholder="Present Address" name="present_address" type="text" required>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Parmanent Address: <span class="text-danger">*</span></label>
                                     <input value="{{ old('address') }}" required class="form-control" placeholder="Parmanent Address" name="address" type="text" required>
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Email address: </label>
                                     <input type="email" value="{{ old('email') }}" name="email" class="form-control" placeholder="Email Address">
                                 </div>
                             </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Phone: <span class="text-danger">*</span></label>
+                                    <input value="{{ old('phone') }}" required type="text" name="phone" class="form-control" placeholder="" >
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="row">
 
-                            <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="gender">Gender: <span class="text-danger">*</span></label>
                                     <select class="select form-control" id="gender" name="gender" required data-fouc data-placeholder="Choose..">
@@ -225,38 +235,24 @@
                                 </div>
                             </div>
 
-                             <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Phone: <span class="text-danger">*</span></label>
-                                    <input value="{{ old('phone') }}" required type="text" name="phone" class="form-control" placeholder="" >
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Guardian Phone:</label>
                                     <input value="{{ old('phone2') }}" type="text" name="phone2" class="form-control" placeholder="" >
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Date of Birth: <span class="text-danger">*</span></label>
-                                    <input name="dob" value="{{ old('dob') }}" required type="text" class="form-control date-pick" placeholder="Select Date...">
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Quota</label>
-                                    <input name="Quota" value="{{ old('Quota') }}" type="text" class="form-control date-pick" placeholder=""
+                                    <input name="dob" value="{{ old('dob') }}" required type="date" class="form-control date-pick" placeholder="Select Date...">
                                 </div>
                             </div>
                         </div>
 
 
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="nal_id">Nationality: <span class="text-danger">*</span></label>
                                     <select data-placeholder="Choose..." required name="nationality" id="nal_id" class="select-search form-control">
@@ -268,7 +264,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="bg_id">Blood Group: </label>
                                     <select class="select form-control" id="bg_id" name="blood_group_name" data-fouc data-placeholder="Choose..">
@@ -279,7 +275,15 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Quota</label>
+                                    <input name="Quota" value="{{ old('Quota') }}" type="text" class="form-control date-pick" placeholder="">
+                                </div>
+                           </div>
                         </div>
+
                     </fieldset>
 
 
