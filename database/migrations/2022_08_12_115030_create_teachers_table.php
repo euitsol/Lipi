@@ -14,25 +14,19 @@ class CreateTeachersTable extends Migration
     public function up()
     {
         Schema::create('teachers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id('id');
+            $table->unsignedBigInteger('department_name');
             $table->string('name');
-            $table->string('email', 100)->unique()->nullable();
-            $table->string('code', 100)->unique();
-            $table->string('username', 100)->nullable()->unique();
-            $table->string('user_type');
-            $table->string('dob')->nullable();
-            $table->string('gender')->nullable();
-            $table->string('photo')->default(Qs::getDefaultUserImage());
-            $table->string('phone')->nullable();
-            $table->string('phone2')->nullable();
-            $table->unsignedInteger('bg_id')->nullable();
-            $table->unsignedInteger('state_id')->nullable();
-            $table->unsignedInteger('lga_id')->nullable();
-            $table->unsignedInteger('nal_id')->nullable();
-            $table->string('address')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('address');
+            $table->string('email', 100)->unique();
+            $table->string('phone')->unique();
+            $table->string('emp_date');
+            $table->string('gender');
+            $table->string('nationality');
+            $table->string('photo');
+            $table->string('resume');
+            $table->string('username', 100)->unique()->nullable();
+            $table->string('password')->nullable();
             $table->timestamps();
         });
     }

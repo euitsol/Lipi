@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SupportTeam;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
+use App\Models\departmentModel;
 
 use App\Helpers\Qs;
 use App\Http\Requests\UserRequest;
@@ -32,15 +33,20 @@ class TeacherController extends Controller
 
     public function index()
     {
-        $ut = $this->user->getAllTypes();
-        $ut2 = $ut->where('level', '>', 2);
+        // $ut = $this->user->getAllTypes();
+        // $ut2 = $ut->where('level', '>', 2);
 
-        $d['user_types'] = Qs::userIsAdmin() ? $ut2 : $ut;
-        $d['states'] = $this->loc->getStates();
-        $d['users'] = $this->user->getPTAUsers();
-        $d['nationals'] = $this->loc->getAllNationals();
-        $d['blood_groups'] = $this->user->getBloodGroups();
-        return view('pages.support_team.teachers.index', $d);
+        // $d['user_types'] = Qs::userIsAdmin() ? $ut2 : $ut;
+        // $d['states'] = $this->loc->getStates();
+        // $d['users'] = $this->user->getPTAUsers();
+        // $d['nationals'] = $this->loc->getAllNationals();
+        $data['blood_groups'] = $this->user->getBloodGroups();
+        $data['departments'] = departmentModel::all();
+        $data['teacher'] = Teacher::all();
+
+        // dd($data['departments']);
+
+        return view('pages.support_team.teachers.index', $data);
     }
 
     public function edit($id)
@@ -74,13 +80,33 @@ class TeacherController extends Controller
         $insert->name =  $req->name;
         $insert->address = $req->address;
         $insert->email = $req->email;
-        $insert->address = $req->address;
-        $insert->username = $req->username;
         $insert->phone = $req->phone;
         $insert->emp_date =  $req->emp_date;
-        $insert->password =  $req->password;
         $insert->gender =  $req->gender;
         $insert->nationality =  $req->nationality;
+        $insert->username = $req->username;
+        $insert->password =  $req->password;
+
+        if($req->hasFile('photo')) {
+            $photo = $req->file('photo');
+            $f = Qs::getFileMetaData($photo);
+            $f['name_photo'] = 'nobir_'.time().'.' . $f['ext'];
+            $f['path_photo'] = $photo->storeAs(Qs::getUploadPath('Teachers_Photo'), $f['name_photo']);
+            // $insert->photo = $request->photo;
+            $insert->photo = asset('storage/' . $f['path_photo']);
+        }
+
+        if($req->hasFile('resume')) {
+            $resume = $req->file('resume');
+            $f = Qs::getFileMetaData($resume);
+            $f['name_resume'] = 'nobir_'.time().'.' . $f['ext'];
+            $f['path_resume'] = $resume->storeAs(Qs::getUploadPath('Teachers_Resume'), $f['name_resume']);
+            // $insert->resume = $request->resume;
+            $insert->resume = asset('storage/' . $f['path_resume']);
+        }
+
+
+        $insert->save();
         // $insert->bg_name =  $req->bg_name;
         // $insert->blood_group_name = $req->blood_group_name;
         // $insert->exam_name =  $req->exam_name;
@@ -130,7 +156,7 @@ class TeacherController extends Controller
         //     $this->user->createStaffRecord($d2);
         // }
 
-        // return Qs::jsonStoreOk();
+        return Qs::jsonStoreOk();
     }
 
     public function update(UserRequest $req, $id)
