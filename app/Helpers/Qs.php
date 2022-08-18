@@ -12,7 +12,7 @@ class Qs
 {
     public static function displayError($errors)
     {
-        
+
         foreach ($errors as $err) {
             $data[] = $err;
         }
@@ -64,7 +64,7 @@ class Qs
         return ['admin', 'super_admin', 'accountant'];
     }
 
-    public static function getTeamSAT()
+    public static function getAdminWithTeache()
     {
         return ['admin', 'super_admin', 'teacher'];
     }
@@ -88,7 +88,7 @@ class Qs
 
     public static function getUserRecord($remove = [])
     {
-        $data = ['name', 'email', 'phone', 'phone2', 'dob', 'gender', 'address', 'bg_id', 'nal_id', 'state_id', 'lga_id'];
+        $data = ['name', 'email', 'phone', 'user_table_id', 'user_id', 'user_roll', 'password'];
 
         return $remove ? array_values(array_diff($data, $remove)) : $data;
     }
@@ -118,62 +118,64 @@ class Qs
 
     public static function userIsTeamAccount()
     {
-        return in_array(Auth::user()->user_type, self::getTeamAccount());
+        return in_array(Auth::user()->user_roll, self::getTeamAccount());
     }
 
     public static function userIsTeamSA()
     {
-        return in_array(Auth::user()->user_type, self::getTeamSA());
+        return in_array(Auth::user()->user_roll, self::getTeamSA());
     }
 
-    public static function userIsTeamSAT()
+
+    // userIsTeamSAT, previous name of the below function
+    public static function usersWithTeachers()
     {
-        return in_array(Auth::user()->user_type, self::getTeamSAT());
+        return in_array(Auth::user()->user_roll, self::getAdminWithTeache());
     }
 
     public static function userIsAcademic()
     {
-        return in_array(Auth::user()->user_type, self::getTeamAcademic());
+        return in_array(Auth::user()->user_roll, self::getTeamAcademic());
     }
 
     public static function userIsAdministrative()
     {
-        return in_array(Auth::user()->user_type, self::getTeamAdministrative());
+        return in_array(Auth::user()->user_roll, self::getTeamAdministrative());
     }
 
     public static function userIsAdmin()
     {
-        return Auth::user()->user_type == 'admin';
+        return Auth::user()->user_roll == 'admin';
     }
 
     public static function getUserType()
     {
-        return Auth::user()->user_type;
+        return Auth::user()->user_roll;
     }
 
     public static function userIsSuperAdmin()
     {
-        return Auth::user()->user_type == 'super_admin';
+        return Auth::user()->user_roll == 'super_admin';
     }
 
     public static function userIsStudent()
     {
-        return Auth::user()->user_type == 'student';
+        return Auth::user()->user_roll == 'student';
     }
 
     public static function userIsTeacher()
     {
-        return Auth::user()->user_type == 'teacher';
+        return Auth::user()->user_roll == 'teacher';
     }
 
     public static function userIsParent()
     {
-        return Auth::user()->user_type == 'parent';
+        return Auth::user()->user_roll == 'parent';
     }
 
     public static function userIsStaff()
     {
-        return in_array(Auth::user()->user_type, self::getStaff());
+        return in_array(Auth::user()->user_roll, self::getStaff());
     }
 
     public static function getStaff($remove=[])
@@ -196,7 +198,7 @@ class Qs
 
     public static function userIsPTA()
     {
-        return in_array(Auth::user()->user_type, self::getPTA());
+        return in_array(Auth::user()->user_roll, self::getPTA());
     }
 
     public static function userIsMyChild($student_id, $parent_id)
@@ -230,9 +232,9 @@ class Qs
         return 'uploads/'.date('Y').'/'.date('m').'/'.date('d').'/';
     }
 
-    public static function getUploadPath($user_type)
+    public static function getUploadPath($user_roll)
     {
-        return 'uploads/'.$user_type;
+        return 'uploads/'.$user_roll;
     }
 
     public static function getFileMetaData($file)

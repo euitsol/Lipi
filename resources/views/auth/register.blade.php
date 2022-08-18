@@ -40,6 +40,52 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="tel" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required>
+
+                                @if ($errors->has('phone'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="user_id" class="col-md-4 col-form-label text-md-right">{{ __('User ID Number') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="user_id" type="text" class="form-control{{ $errors->has('user_id') ? ' is-invalid' : '' }}" name="user_id" value="{{ old('user_id') }}" required>
+
+                                @if ($errors->has('user_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('user_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="user_roll" class="col-md-4 col-form-label text-md-right">{{ __('User Roll') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="user_roll" type="text" class="form-control{{ $errors->has('user_roll') ? ' is-invalid' : '' }}" name="user_roll" value="{{ old('user_roll') }}" required>
+                                    <option value="admin">Admin</option>
+                                    <option value="super_admin">Super Admin</option>
+                                    <option value="operator">Operator</option>
+                                    <option value="editor">Editor</option>
+                                </select>
+                                @if ($errors->has('user_roll'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('user_roll') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

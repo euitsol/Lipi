@@ -37,14 +37,16 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        // $d=[];
-        // if(Qs::userIsTeamSAT()){
+        $d=[];
+        // if(Qs::usersWithTeachers()){
 
         //     $d['users'] = $this->user->getAll();
         // }
         $user = Auth::user();
-        dd($user);
+        // dd($user->user_id);
+        $d["users"] = $user;
 
-        return view('pages.support_team.dashboard', $d);
+
+        return view('pages.support_team.dashboard',$d);
     }
 }
