@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SupportTeam;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Models\departmentModel;
+use App\User;
 
 use App\Helpers\Qs;
 use App\Http\Requests\UserRequest;
@@ -52,12 +53,15 @@ class TeacherController extends Controller
     public function edit($id)
     {
         $id = Qs::decodeHash($id);
-        $d['user'] = $this->user->find($id);
-        $d['states'] = $this->loc->getStates();
-        $d['users'] = $this->user->getPTAUsers();
-        $d['blood_groups'] = $this->user->getBloodGroups();
-        $d['nationals'] = $this->loc->getAllNationals();
-        return view('pages.support_team.users.edit', $d);
+        $data['blood_groups'] = $this->user->getBloodGroups();
+        $data["teachers"] = Teacher::find($id);
+        // dd($data['teachers']);
+        // $d['user'] = $this->user->find($id);
+        // $d['states'] = $this->loc->getStates();
+        // $d['users'] = $this->user->getPTAUsers();
+        // $d['blood_groups'] = $this->user->getBloodGroups();
+        // $d['nationals'] = $this->loc->getAllNationals();
+        return view('pages.support_team.teachers.edit', $data);
     }
 
     public function reset_pass($id)
@@ -84,8 +88,9 @@ class TeacherController extends Controller
         $insert->emp_date =  $req->emp_date;
         $insert->gender =  $req->gender;
         $insert->nationality =  $req->nationality;
-        $insert->username = $req->username;
-        $insert->password =  $req->password;
+        $insert->bg_name =  $req->bg_name;
+        // $insert->photo =  $req->photo;
+        // $insert->resume =  $req->resume;
 
         if($req->hasFile('photo')) {
             $photo = $req->file('photo');
@@ -107,6 +112,20 @@ class TeacherController extends Controller
 
 
         $insert->save();
+
+        $teacher_table = Teacher::where("phone","=",$req->phone)->get();
+
+        $insert_user = new User;
+        $insert_user->name =  $req->name;
+        $insert_user->email = $req->email;
+        $insert_user->phone = $req->phone;
+        $insert_user->user_table_id =  $teacher_table->id;
+        $insert_user->user_id =  $req->teacher_id;
+        $insert_user->user_roll = "teacher";
+        $insert_user->password =  $req->password;
+
+        $insert_user->save();
+
         // $insert->bg_name =  $req->bg_name;
         // $insert->blood_group_name = $req->blood_group_name;
         // $insert->exam_name =  $req->exam_name;
@@ -159,50 +178,90 @@ class TeacherController extends Controller
         return Qs::jsonStoreOk();
     }
 
-    public function update(UserRequest $req, $id)
+    public function update(Request $req, $id)
     {
+
         $id = Qs::decodeHash($id);
-
-        // Redirect if Making Changes to Head of Super Admins
-        if(Qs::headSA($id)){
-            return Qs::json(__('msg.denied'), FALSE);
-        }
-
-        $user = $this->user->find($id);
-
-        $user_type = $user->user_type;
-        $user_is_staff = in_array($user_type, Qs::getStaff());
-        $user_is_teamSA = in_array($user_type, Qs::getTeamSA());
-
-        $data = $req->except(Qs::getStaffRecord());
-        $data['name'] = ucwords($req->name);
-
-        if($user_is_staff && !$user_is_teamSA){
-            $data['username'] = Qs::getAppCode().'/STAFF/'.date('Y/m', strtotime($req->emp_date)).'/'.mt_rand(1000, 9999);
-        }
-        else {
-            $data['username'] = $user->username;
-        }
+        $update = Teacher::find($id);
+        // $update->department_name = $req->department_name;
+        $update->name =  $req->name;
+        $update->address = $req->address;
+        $update->email = $req->email;
+        $update->phone = $req->phone;
+        $update->emp_date =  $req->emp_date;
+        $update->gender =  $req->gender;
+        $update->nationality =  $req->nationality;
+        $update->bg_name =  $req->bg_name;
+        // $update->photo =  $req->photo;
+        // $update->resume =  $req->resume;
 
         if($req->hasFile('photo')) {
             $photo = $req->file('photo');
             $f = Qs::getFileMetaData($photo);
-            $f['name'] = 'photo.' . $f['ext'];
-            $f['path'] = $photo->storeAs(Qs::getUploadPath($user_type).$user->code, $f['name']);
-            $data['photo'] = asset('storage/' . $f['path']);
+            $f['name_photo'] = 'nobir_'.time().'.' . $f['ext'];
+            $f['path_photo'] = $photo->storeAs(Qs::getUploadPath('Teachers_Photo'), $f['name_photo']);
+            // $update->photo = $request->photo;
+            $update->photo = asset('storage/' . $f['path_photo']);
         }
 
-        $this->user->update($id, $data);   /* UPDATE USER RECORD */
+        if($req->hasFile('resume')) {
+            $resume = $req->file('resume');
+            $f = Qs::getFileMetaData($resume);
+            $f['name_resume'] = 'nobir_'.time().'.' . $f['ext'];
+            $f['path_resume'] = $resume->storeAs(Qs::getUploadPath('Teachers_Resume'), $f['name_resume']);
+            // $update->resume = $request->resume;
+            $update->resume = asset('storage/' . $f['path_resume']);
+        }
+
+
+        $update->save();
+
+
+
+
+        // $id = Qs::decodeHash($id);
+
+        // Redirect if Making Changes to Head of Super Admins
+        // if(Qs::headSA($id)){
+        //     return Qs::json(__('msg.denied'), FALSE);
+        // }
+
+        // $user = $this->user->find($id);
+
+        // $user_type = $user->user_type;
+        // $user_is_staff = in_array($user_type, Qs::getStaff());
+        // $user_is_teamSA = in_array($user_type, Qs::getTeamSA());
+
+        // $data = $req->except(Qs::getStaffRecord());
+        // $data['name'] = ucwords($req->name);
+
+        // if($user_is_staff && !$user_is_teamSA){
+        //     $data['username'] = Qs::getAppCode().'/STAFF/'.date('Y/m', strtotime($req->emp_date)).'/'.mt_rand(1000, 9999);
+        // }
+        // else {
+        //     $data['username'] = $user->username;
+        // }
+
+        // if($req->hasFile('photo')) {
+        //     $photo = $req->file('photo');
+        //     $f = Qs::getFileMetaData($photo);
+        //     $f['name'] = 'photo.' . $f['ext'];
+        //     $f['path'] = $photo->storeAs(Qs::getUploadPath($user_type).$user->code, $f['name']);
+        //     $data['photo'] = asset('storage/' . $f['path']);
+        // }
+
+        // $this->user->update($id, $data);   /* UPDATE USER RECORD */
 
         /* UPDATE STAFF RECORD */
-        if($user_is_staff){
-            $d2 = $req->only(Qs::getStaffRecord());
-            $d2['code'] = $data['username'];
-            $this->user->updateStaffRecord(['user_id' => $id], $d2);
-        }
+        // if($user_is_staff){
+        //     $d2 = $req->only(Qs::getStaffRecord());
+        //     $d2['code'] = $data['username'];
+        //     $this->user->updateStaffRecord(['user_id' => $id], $d2);
+        // }
 
-        return Qs::jsonUpdateOk();
+        return back();
     }
+
 
     public function show($user_id)
     {
@@ -223,20 +282,33 @@ class TeacherController extends Controller
     {
         $id = Qs::decodeHash($id);
 
+        $delete = Teacher::find($id);
+        // $st_id = Qs::decodeHash($st_id);
+        // if(!$st_id){return Qs::goWithDanger();}
+        // $sr = $this->student->getRecord(['user_id' => $st_id])->first();
+
+        $path_photo = Qs::getUploadPath('Teachers_Photo').$delete->photo;
+        $path_resume = Qs::getUploadPath('Teachers_Resume').$delete->resume;
+        Storage::exists($path_photo) ? Storage::deleteDirectory($path_photo) : false;
+        Storage::exists($path_resume) ? Storage::deleteDirectory($path_resume) : false;
+
+        $delete->delete();
+
+        // return back()->with('flash_success', __('msg.del_ok'));
         // Redirect if Making Changes to Head of Super Admins
-        if(Qs::headSA($id)){
-            return back()->with('pop_error', __('msg.denied'));
-        }
+        // if(Qs::headSA($id)){
+        //     return back()->with('pop_error', __('msg.denied'));
+        // }
 
-        $user = $this->user->find($id);
+        // $user = $this->user->find($id);
 
-        if($user->user_type == 'teacher' && $this->userTeachesSubject($user)) {
-            return back()->with('pop_error', __('msg.del_teacher'));
-        }
+        // if($user->user_type == 'teacher' && $this->userTeachesSubject($user)) {
+        //     return back()->with('pop_error', __('msg.del_teacher'));
+        // }
 
-        $path = Qs::getUploadPath($user->user_type).$user->code;
-        Storage::exists($path) ? Storage::deleteDirectory($path) : true;
-        $this->user->delete($user->id);
+        // $path = Qs::getUploadPath($user->user_type).$user->code;
+        // Storage::exists($path) ? Storage::deleteDirectory($path) : true;
+        // $this->user->delete($user->id);
 
         return back()->with('flash_success', __('msg.del_ok'));
     }

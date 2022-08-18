@@ -12,6 +12,7 @@ class Qs
 {
     public static function displayError($errors)
     {
+        
         foreach ($errors as $err) {
             $data[] = $err;
         }
