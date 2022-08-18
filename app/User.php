@@ -35,33 +35,33 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function student_record()
-    {
-        return $this->hasOne(StudentRecord::class);
-    }
+    // public function student_record()
+    // {
+    //     return $this->hasOne(StudentRecord::class);
+    // }
 
-    public function lga()
-    {
-        return $this->belongsTo(Lga::class);
-    }
+    // public function lga()
+    // {
+    //     return $this->belongsTo(Lga::class);
+    // }
 
-    public function state()
-    {
-        return $this->belongsTo(State::class);
-    }
+    // public function state()
+    // {
+    //     return $this->belongsTo(State::class);
+    // }
 
-    public function nationality()
-    {
-        return $this->belongsTo(Nationality::class, 'nal_id');
-    }
+    // public function nationality()
+    // {
+    //     return $this->belongsTo(Nationality::class, 'nal_id');
+    // }
 
-    public function blood_group()
-    {
-        return $this->belongsTo(BloodGroup::class, 'bg_id');
-    }
+    // public function blood_group()
+    // {
+    //     return $this->belongsTo(BloodGroup::class, 'bg_id');
+    // }
 
-    public function staff()
-    {
-        return $this->hasMany(StaffRecord::class);
-    }
+    // public function staff()
+    // {
+    //     return $this->hasMany(StaffRecord::class);
+    // }
 }

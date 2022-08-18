@@ -140,7 +140,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('students', 'StudentRecordController');
         Route::resource('users', 'UserController');
-        Route::resource('teachers', 'TeacherController');
         Route::resource('classes', 'MyClassController');
         Route::resource('sections', 'SectionController');
         Route::resource('semester_details', 'SubjectController');
@@ -153,6 +152,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('departments', 'departmentController');
         Route::resource('classRoom', 'ClassRoomController');
         Route::resource('notice', 'noticeController');
+        Route::resource('teachers', 'TeacherController');
 
     });
 
