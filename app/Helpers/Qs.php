@@ -128,7 +128,7 @@ class Qs
 
 
     // userIsTeamSAT, previous name of the below function
-    public static function usersWithTeachers()
+    public static function userIsTeamSAT()
     {
         return in_array(Auth::user()->user_roll, self::getAdminWithTeache());
     }

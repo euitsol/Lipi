@@ -1,6 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-    $('.date-pick').datepicker();
-
+document.addEventListener("DOMContentLoaded", function () {
+  $(".date-pick").datepicker();
 });
 

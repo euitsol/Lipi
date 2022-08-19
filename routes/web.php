@@ -142,7 +142,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('users', 'UserController');
         Route::resource('classes', 'MyClassController');
         Route::resource('sections', 'SectionController');
-        Route::resource('semester_details', 'SubjectController');
+        Route::resource('semester_details', 'semesterDetailsController');
         Route::resource('nameSubjects', 'Nsubjectcontroller');
         Route::resource('grades', 'GradeController');
         Route::resource('exams', 'ExamController');

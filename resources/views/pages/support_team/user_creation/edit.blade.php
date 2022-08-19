@@ -10,6 +10,13 @@
         </div>
 {{-- @dd($data_update->id) --}}
         <div class="card-body">
+            {{-- <div class="col-md-3"> --}}
+                @if(session()->has("msg"))
+            <div class="alert alert-danger">
+                <span>{{session()->get("msg")}}</span>
+            </div>
+            @endif
+            {{-- </div> --}}
             <div class="row">
                 <div class="col-md-6">
                     {{-- class="ajax-update" --}}

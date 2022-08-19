@@ -8,11 +8,14 @@ use App\Http\Requests\Subject\SubjectUpdate;
 use App\Repositories\MyClassRepo;
 use App\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
+//Models
 use App\Models\departmentModel;
 use App\Models\n_subjectModel;
 use App\Models\Subject;
+use App\Models\Teacher;
+use App\Models\MyClass;
 
-class SubjectController extends Controller
+class semesterDetailsController extends Controller
 {
     protected $my_class, $user;
 
@@ -30,9 +33,11 @@ class SubjectController extends Controller
         $query_semester_details =Subject::all();
         $d['department_db'] = departmentModel::all();
         $d['subject_db'] = n_subjectModel::all();
-        $d['my_classes'] = $this->my_class->all();
-        $d['teachers'] = $this->user->getUserByType('teacher');
-        $d['subjects'] = $this->my_class->getAllSubjects();
+        $d['teachers'] = Teacher::all();
+        $d['my_classes'] = MyClass::all();
+        // dd(Teacher::all());
+        // $d['teachers'] = $this->user->getUserByType('teacher');
+        // $d['subjects'] = $this->my_class->getAllSubjects();
 
         return view('pages.support_team.semester_details.index',$d,compact('query_semester_details'));
     }

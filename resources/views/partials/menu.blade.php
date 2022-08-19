@@ -91,7 +91,7 @@
                 @endif
 
 
-                @if(Qs::usersWithTeachers())
+                @if(Qs::userIsTeamSAT())
                 {{--Manage Teachers--}}
                 <li class="nav-item">
                     <a href="{{ route('teachers.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['teachers.index', 'teachers.show', 'teachers.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Teachers</span></a>
@@ -187,7 +187,7 @@
                 @endif
 
                 {{--Exam--}}
-                @if(Qs::usersWithTeachers())
+                @if(Qs::userIsTeamSAT())
                 <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['exams.index', 'exams.edit', 'grades.index', 'grades.edit', 'marks.index', 'marks.manage', 'marks.bulk', 'marks.tabulation', 'marks.show', 'marks.batch_fix',]) ? 'nav-item-expanded nav-item-open' : '' }} ">
                     <a href="#" class="nav-link"><i class="icon-books"></i> <span> Exams</span></a>
 
@@ -217,7 +217,7 @@
                             </li>
                         @endif
 
-                        @if(Qs::usersWithTeachers())
+                        @if(Qs::userIsTeamSAT())
                             {{--Marks Manage--}}
                             <li class="nav-item">
                                 <a href="{{ route('marks.index') }}"
