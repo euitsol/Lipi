@@ -21,13 +21,13 @@
             <div class="card-body">
                 <div class="media">
                     <div class="mr-3">
-                        <a href="{{ route('my_account') }}"><img src="{{ Auth::user()->photo }}" width="38" height="38" class="rounded-circle" alt="photo"></a>
+                        {{-- <a href="{{ route('my_account') }}"><img src="{{ Auth::user()->photo }}" width="38" height="38" class="rounded-circle" alt="photo"></a> --}}
                     </div>
 
                     <div class="media-body">
                         <div class="media-title font-weight-semibold">{{ Auth::user()->name }}</div>
                         <div class="font-size-xs opacity-50">
-                            <i class="icon-user font-size-sm"></i> &nbsp;{{ ucwords(str_replace('_', ' ', Auth::user()->user_type)) }}
+                            <i class="icon-user font-size-sm"></i> &nbsp;{{ ucwords(str_replace('_', ' ', Auth::user()->user_roll)) }}
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@
                 @endif
 
 
-                @if(Qs::userIsTeamSAT())
+                @if(Qs::usersWithTeachers())
                 {{--Manage Teachers--}}
                 <li class="nav-item">
                     <a href="{{ route('teachers.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['teachers.index', 'teachers.show', 'teachers.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Teachers</span></a>
@@ -143,6 +143,9 @@
                     <li class="nav-item">
                         <a href="{{ route('users.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['users.index', 'users.show', 'users.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Users</span></a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('userCreation.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['userCreation.index', 'userCreation.show', 'userCreation.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> User Creation </span></a>
+                    </li>
 
                      {{--Manage Deparment--}}
                     <li class="nav-item">
@@ -184,7 +187,7 @@
                 @endif
 
                 {{--Exam--}}
-                @if(Qs::userIsTeamSAT())
+                @if(Qs::usersWithTeachers())
                 <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['exams.index', 'exams.edit', 'grades.index', 'grades.edit', 'marks.index', 'marks.manage', 'marks.bulk', 'marks.tabulation', 'marks.show', 'marks.batch_fix',]) ? 'nav-item-expanded nav-item-open' : '' }} ">
                     <a href="#" class="nav-link"><i class="icon-books"></i> <span> Exams</span></a>
 
@@ -214,7 +217,7 @@
                             </li>
                         @endif
 
-                        @if(Qs::userIsTeamSAT())
+                        @if(Qs::usersWithTeachers())
                             {{--Marks Manage--}}
                             <li class="nav-item">
                                 <a href="{{ route('marks.index') }}"

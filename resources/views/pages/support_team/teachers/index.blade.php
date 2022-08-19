@@ -24,7 +24,7 @@
 
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="new-user">
-                    <form method="post" enctype="multipart/form-data" class="wizard-form steps-validation ajax-store" action="{{ route('teachers.store') }}" data-fouc>
+                    <form method="post" enctype="multipart/form-data" class="wizard-form steps-validation" action="{{ route('teachers.store') }}" data-fouc>
                         @csrf
 
                     <h6>Teacher Login</h6>
