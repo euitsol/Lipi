@@ -63,12 +63,13 @@
                                          </select>
                                     </div>
                                 </div>
-
+                               
                                 <div class="form-group row">
                                     <label for="teacher_id" class="col-lg-3 col-form-label font-weight-semibold">Teacher <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
-                                        <select required data-placeholder="Select Teacher" class="form-control select-search" name="teacher_id" id="teacher_id">
-                                            <option value=""></option>
+                                        <select required data-placeholder="Select Teacher" class="form-control" name="teacher_id" id="teacher_id">
+                                            <option value="">Select Teacher</option> 
+                                           
                                             @foreach($teachers as $t)
                                                 <option {{ old('teacher_id') == Qs::hash($t->id) ? 'selected' : '' }} value="{{ Qs::hash($t->id) }}">{{ $t->name }}</option>
                                             @endforeach
@@ -98,7 +99,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @dd($query_semester_details)
+                                {{-- @dd($query_semester_details) --}}
                             @foreach($query_semester_details as $s)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
@@ -134,7 +135,6 @@
                         </table>
                     </div>
                 @endforeach
-
             </div>
         </div>
     </div>

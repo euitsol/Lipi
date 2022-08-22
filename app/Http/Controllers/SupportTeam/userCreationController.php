@@ -47,17 +47,26 @@ class userCreationController extends Controller
             "user_roll.required"=>"Please, Select User Roll",
         ]);
 
-        $insert = new User;
-        $insert->name= "";
-        $insert->email= time();
-        $insert->phone= time();
-        $insert->user_table_id= "";
-        $insert->user_id= $request->user_id;
-        $insert->user_roll= $request->user_roll;
-        $insert->password= "";
-        $insert->save();
+        $user_id = $request->user_id;
+        $user_roll = $request->user_roll;
 
-      return Qs::jsonStoreOk();
+        $query_validation = User::where("user_id","=",$user_id)
+                            ->get();
+        if(count($query_validation)> 0){
+           return redirect()->back();
+        }else{
+            $insert = new User;
+            // $insert->name= "";
+            // $insert->email= time();
+            // $insert->phone= time();
+            // $insert->user_table_id= "";
+            $insert->user_id= $request->user_id;
+            $insert->user_roll= $request->user_roll;
+            // $insert->password= "";
+            $insert->save();
+
+            return Qs::jsonStoreOk();
+        }
     }
 
     /**
@@ -102,12 +111,22 @@ class userCreationController extends Controller
             "user_roll.required"=>"Please, Select User Roll",
         ]);
 
-        $update = User::find($id);
-        $update->user_id= $request->user_id;
-        $update->user_roll= $request->user_roll;
-        $update->save();
+        $user_id = $request->user_id;
 
-      return redirect()->route("userCreation.index");
+        $query_validation = User::where("user_id","=",$user_id)
+                            ->where("id","!=",$id)
+                            ->get();
+        if(count($query_validation) > 0){
+           return redirect()->back()->with("msg","This user id is already exist");
+        }
+        else{
+            $update = User::find($id);
+            $update->user_id= $request->user_id;
+            $update->user_roll= $request->user_roll;
+            $update->save();
+
+            return redirect()->route("userCreation.index");
+        }
     }
 
     /**

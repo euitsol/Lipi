@@ -23,6 +23,13 @@
             </ul>
 
             <div class="tab-content">
+                <div>
+                    @if (session()->has('msg'))
+                    <div class="alert alert-danger">
+                        {{session()->get('msg')}}
+                    </div>                      
+                    @endif
+                </div>
                 <div class="tab-pane fade show active" id="new-user">
                     <form method="post" enctype="multipart/form-data" class="wizard-form steps-validation" action="{{ route('teachers.store') }}" data-fouc>
                         @csrf
@@ -33,10 +40,9 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Teacher ID: <span class="text-danger">*</span></label>
-                                    <input value="{{ old('teacher_id') }}" type="text" name="teacher_id" class="form-control" placeholder="Teacher ID" required>
+                                    <input id="teacher_id" value="{{ old('teacher_id') }}" type="text" name="teacher_id" class="form-control" placeholder="Teacher ID" required>
                                 </div>
                             </div>
-
 
                                 <div class="col-md-4">
                                    <div class="form-group">
@@ -61,9 +67,9 @@
                                     <div class="form-group">
                                         <label for="user_type"> Select Department: <span class="text-danger">*</span></label>
                                         <select required data-placeholder="Select User" class="form-control select" required name="department_name" id="department_name">
-                                @foreach($departments as $ut)
-                                    <option value="{{ $ut->short_name }}">{{ $ut->short_name }}</option>
-                                @endforeach
+                                            @foreach($departments as $ut)
+                                            <option value="{{ $ut->short_name }}">{{ $ut->short_name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -236,5 +242,10 @@
     </div>
 
     {{--Student List Ends--}}
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
+    {{-- <script>
+      var id =  document.getElementById("teacher_id").value();
+      alert(id);
+    </script> --}}
 
 @endsection

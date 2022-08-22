@@ -16,14 +16,14 @@ class CreateSemesterDetailsTable extends Migration
         Schema::create('semester_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('department_id');
-            $table->unsignedInteger('my_classes_id');
-            $table->unsignedBigInteger('subject_n_id');
+            $table->unsignedInteger('semester_id');
+            $table->unsignedBigInteger('subject_id');
             $table->unsignedBigInteger('teacher_id');
             $table->timestamps();
-            // $table->foreign('department_id')->references('id')->on("departments")->onUpdate('cascade')->onDelete('cascade');
-            // $table->foreign('semester_id')->references('id')->on("my_classes")->onUpdate('cascade')->onDelete('cascade');
-            // $table->foreign('subject_id')->references('id')->on("subject_n")->onUpdate('cascade')->onDelete('cascade');
-            // $table->foreign('teacher_id')->references('id')->on("subjects")->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on("departments")->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('semester_id')->references('class_type_id')->on("my_classes")->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('subject_id')->references('id')->on("subject_n")->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('teacher_id')->references('id')->on("teachers")->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

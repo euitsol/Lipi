@@ -9,6 +9,13 @@
         </div>
 
         <div class="card-body">
+            <div>
+                @if(session()->has("msg"))
+                <div class="alert alert-danger">
+                    <span>{{session()->get("msg")}}</span>
+                </div>
+                @endif
+            </div>
             <ul class="nav nav-tabs nav-tabs-highlight">
                 <li class="nav-item"><a href="#all-classes" class="nav-link active" data-toggle="tab">User Creation</a></li>
                 <li class="nav-item"><a href="#new-class" class="nav-link" data-toggle="tab"><i class="icon-plus2"></i> Create New User Creation</a></li>

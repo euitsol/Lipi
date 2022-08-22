@@ -21,7 +21,6 @@
                             <tr>
                                 <th>S/N</th>
                                 <th>Name</th>
-                                <th>Semester Type</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -30,7 +29,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $c->name }}</td>
-                                    <td>{{ $c->class_type->name }}</td>
+                                    {{-- <td>{{ $c->class_type->name }}</td> --}}
                                     <td class="text-center">
                                         <div class="list-icons">
                                             <div class="dropdown">
@@ -81,7 +80,7 @@
                                     </div>
                                 </div>
 
-                                <div Semester="form-group row">
+                                {{-- <div Semester="form-group row">
                                     <label for="class_type_id" class="col-lg-3 col-form-label font-weight-semibold">Semester Type</label>
                                     <div class="col-lg-9">
                                         <select required data-placeholder="Select Class Type" class="form-control select" name="class_type_id" id="class_type_id">
@@ -90,7 +89,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="text-right">
                                     <button id="ajax-btn" type="submit" class="btn btn-primary">Submit form <i class="icon-paperplane ml-2"></i></button>
