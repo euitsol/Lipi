@@ -83,7 +83,7 @@ class TeacherController extends Controller
         $user_id = $req->teacher_id;
         $phone = $req->phone;
         $email = $req->email;
-
+        // dd($user_id);
         $user_id = Teacher::where("user_id","=",$user_id)
                         ->get();
         $user_phone = Teacher::where("phone","=",$phone)
@@ -100,15 +100,17 @@ class TeacherController extends Controller
         elseif(count($user_phone)>0){
             return redirect()->route("teachers.index")->with("msg","Please choose a different phone number");
         } else{
-
-             $user_table = User::where("user_id","=",$user_id)
-                        ->where("user_roll","=","teacher")
-                        ->get();
-                        // dd($user);
-            if(count($user_table)>0)
-            {
+            // dd();
+            
+                $user_table = User::where("user_id","=",$req->teacher_id)
+                            ->where("user_roll","=","teacher")
+                            ->get();
+                           
+                if(count($user_table)>0)
+                {
 
                 $insert = new Teacher;
+                $insert->user_id = $req->teacher_id;
                 $insert->department_name = $req->department_name;
                 $insert->name =  $req->name;
                 $insert->address = $req->address;
@@ -145,7 +147,7 @@ class TeacherController extends Controller
                 // user create
                 // $teacher_table = Teacher::where("phone","=",$req->phone)->get();
                 // $insert_user = new User;
-                $user_table_update = User::where("user_id","=",$user_id)
+                $user_table_update = User::where("user_id","=",$req->teacher_id)
                                     ->first();
                 $user_table_update->name =  $req->name;
                 $user_table_update->email = $req->email;

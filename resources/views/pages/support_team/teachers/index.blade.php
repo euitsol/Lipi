@@ -44,7 +44,6 @@
                                 </div>
                             </div>
 
-
                                 <div class="col-md-4">
                                    <div class="form-group">
                                        <label for="password">Create Password: <span class="text-danger">*</span></label>
