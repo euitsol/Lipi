@@ -13,7 +13,10 @@ use App\Models\departmentModel;
 use App\Models\n_subjectModel;
 use App\Models\Subject;
 use App\Models\Teacher;
-use App\Models\MyClass;
+use App\Models\semester;
+use App\Models\Semester_detail;
+// use Request;
+use Illuminate\Http\Request;
 
 class semesterDetailsController extends Controller
 {
@@ -29,46 +32,91 @@ class semesterDetailsController extends Controller
 
     public function index()
     {
-        $query_semester_details =Subject::all();
+        $query_semester_details =Semester_detail::all();
         $d['department_db'] = departmentModel::all();
         $d['subject_db'] = n_subjectModel::all();
         $d['teachers'] = Teacher::all();
-        $d['my_classes'] = MyClass::all();
-        // dd(Teacher::all());
+        $d['semester'] = semester::all();
+        // dd(semester::all());
         // $d['teachers'] = $this->user->getUserByType('teacher');
         // $d['subjects'] = $this->my_class->getAllSubjects();
 
         return view('pages.support_team.semester_details.index',$d,compact('query_semester_details'));
     }
 
-    public function store(SubjectCreate $req)
+    public function store(Request $req)
     {
-        $data = $req->all();
-        $this->my_class->createSubject($data);
-
-        return Qs::jsonStoreOk();
+        $this->validate($req,[
+            'departments_id' => 'required',
+            'my_class_id' => 'required',
+            'teacher_id' => 'required',
+            'subject_id' => 'required'
+        ],
+        [
+            'departments_id.required' => 'Select Department Name',
+            'my_class_id.required' => 'Select Semester Name',
+            'teacher_id.required' => 'Select Teacher Name',
+            'subject_id.required' => 'Select Subject Name',
+        ]);
+        $departments_id = Qs::decodeHash($req->departments_id);
+        $my_class_id = Qs::decodeHash($req->my_class_id);
+        $teacher_id = Qs::decodeHash($req->teacher_id);
+        $subject_id = Qs::decodeHash($req->subject_id);
+        // $data = $req->all();
+        // dd($departments_id, $subject_id, $teacher_id,$subject_id);
+        $insert = new Semester_detail;
+        $insert->department_id = $departments_id;
+        $insert->semester_id = $my_class_id;
+        $insert->subject_id = $teacher_id;
+        $insert->teacher_id = $subject_id;
+        $insert->save();
+        return back()->with('msg',"Successfully inserted");
     }
 
     public function edit($id)
     {
-        $d['s'] = $sub = $this->my_class->findSubject($id);
-        $d['my_classes'] = $this->my_class->all();
-        $d['teachers'] = $this->user->getUserByType('teacher');
+        $id = Qs::decodeHash($id);
+        // dd($id);
+        $query_semester_details =Semester_detail::find($id);
+        $d['department_db'] = departmentModel::all();
+        $d['subject_db'] = n_subjectModel::all();
+        $d['teachers'] = Teacher::all();
+        $d['semester'] = semester::all();
 
-        return is_null($sub) ? Qs::goWithDanger('semester_details.index') : view('pages.support_team.semester_details.edit', $d);
+        // dd($d);
+        return  view('pages.support_team.semester_details.edit', $d,compact('query_semester_details'));
     }
+    
 
-    public function update(SubjectUpdate $req, $id)
+    public function update(Request $req, $id)
     {
-        $data = $req->all();
-        $this->my_class->updateSubject($id, $data);
+        // $data = $req->all();
+        // $this->my_class->updateSubject($id, $data);
+        $id = Qs::decodeHash($id);
+        
+        $departments_id = Qs::decodeHash($req->departments_id);
+        $my_class_id = Qs::decodeHash($req->my_class_id);
+        $teacher_id = Qs::decodeHash($req->teacher_id);
+        $subject_id = Qs::decodeHash($req->subject_id);
+
+        $update = Semester_detail::find($id);
+        $update->department_id = $departments_id;
+        $update->semester_id = $my_class_id;
+        $update->subject_id = $teacher_id;
+        $update->teacher_id = $subject_id;
+        $update->save();
+        return back()->with('msg',"Successfully inserted");
 
         return Qs::jsonUpdateOk();
     }
+    
 
     public function destroy($id)
     {
-        $this->my_class->deleteSubject($id);
+        $id = Qs::decodeHash($id);
+        $delete = Semester_detail::find($id);
+        $delete->delete();
+        
         return back()->with('flash_success', __('msg.del_ok'));
     }
 }
