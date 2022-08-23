@@ -53,15 +53,15 @@
 
                 {{--Academics--}}
                 @if(Qs::userIsAcademic())
-                    <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['tt.index', 'ttr.edit', 'ttr.show', 'ttr.manage']) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                    {{-- <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['tt.index', 'ttr.edit', 'ttr.show', 'ttr.manage']) ? 'nav-item-expanded nav-item-open' : '' }} ">
                         <a href="#" class="nav-link"><i class="icon-graduation2"></i> <span> Academics</span></a>
 
-                        <ul class="nav nav-group-sub" data-submenu-title="Manage Academics">
+                        <ul class="nav nav-group-sub" data-submenu-title="Manage Academics"> --}}
 
                         {{--Timetables--}}
-                            <li class="nav-item"><a href="{{ route('tt.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['tt.index']) ? 'active' : '' }}">Timetables</a></li>
+                            {{-- <li class="nav-item"><a href="{{ route('tt.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['tt.index']) ? 'active' : '' }}">Timetables</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     @endif
 
                 {{--Administrative--}}
@@ -98,7 +98,7 @@
                 </li>
                 {{--Manage Students--}}
                     <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['students.create', 'students.list', 'students.edit', 'students.show', 'students.promotion', 'students.promotion_manage', 'students.graduated']) ? 'nav-item-expanded nav-item-open' : '' }} ">
-                        <a href="#" class="nav-link"><i class="icon-users"></i> <span> Students</span></a>
+                        {{-- <a href="#" class="nav-link"><i class="icon-users"></i> <span> Students</span></a> --}}
 
                         <ul class="nav nav-group-sub" data-submenu-title="Manage Students">
                             {{--Admit Student--}}
@@ -141,7 +141,7 @@
                 @if(Qs::userIsTeamSA())
                     {{--Manage Users--}}
                     <li class="nav-item">
-                        <a href="{{ route('users.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['users.index', 'users.show', 'users.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Users</span></a>
+                        {{-- <a href="{{ route('users.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['users.index', 'users.show', 'users.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> Users</span></a> --}}
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('userCreation.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['userCreation.index', 'userCreation.show', 'userCreation.edit']) ? 'active' : '' }}"><i class="icon-users4"></i> <span> User Creation </span></a>
@@ -161,6 +161,10 @@
                     <li class="nav-item">
                         <a href="{{ route('semester_details.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['semester_details.index','semester_details.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester Details</span></a>
                     </li>
+                    {{--Manage Routine--}}
+                    <li class="nav-item">
+                        <a href="{{ route('routine.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['routine.index','routine.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Routine</span></a>
+                    </li>
 
                     {{--Manage Class Room--}}
                     <li class="nav-item">
@@ -172,12 +176,12 @@
                     </li>
                     {{--Manage Dorms--}}
                     <li class="nav-item">
-                        <a href="{{ route('dorms.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['dorms.index','dorms.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Dormitories</span></a>
+                        {{-- <a href="{{ route('dorms.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['dorms.index','dorms.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Dormitories</span></a> --}}
                     </li>
 
                     {{--Manage Sections--}}
                     <li class="nav-item">
-                        <a href="{{ route('sections.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index','sections.edit',]) ? 'active' : '' }}"><i class="icon-fence"></i> <span>Sections</span></a>
+                        <a href="{{ route('sections.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index','sections.edit',]) ? 'active' : '' }}"><i class="icon-fence"></i> <span>Group</span></a>
                     </li>
 
                     {{--Manage Subject--}}

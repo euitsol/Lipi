@@ -8,6 +8,10 @@ use App\Http\Requests\Section\SectionUpdate;
 use App\Repositories\MyClassRepo;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepo;
+use App\Models\Section;
+// use Request;
+use Illuminate\Http\Request;
+
 
 class SectionController extends Controller
 {
@@ -24,45 +28,49 @@ class SectionController extends Controller
 
     public function index()
     {
-        $d['my_classes'] = $this->my_class->all();
-        $d['sections'] = $this->my_class->getAllSections();
-        $d['teachers'] = $this->user->getUserByType('teacher');
+        // $d['my_classes'] = $this->my_class->all();
+        // $d['sections'] = $this->my_class->getAllSections();
+        // $d['teachers'] = $this->user->getUserByType('teacher');
+        $d['sections'] = Section::all();
 
         return view('pages.support_team.sections.index', $d);
     }
 
-    public function store(SectionCreate $req)
+    public function store(Request $req)
     {
-        $data = $req->all();
-        $this->my_class->createSection($data);
+        $insert=new Section; 
+        $insert->name = $req->name;
+        $insert->save();
 
         return Qs::jsonStoreOk();
     }
 
     public function edit($id)
     {
-        $d['s'] = $s = $this->my_class->findSection($id);
-        $d['teachers'] = $this->user->getUserByType('teacher');
+        $id = Qs::decodeHash($id);
+        
+        // $d['s'] = $s = $this->my_class->findSection($id);
+        $d['sections'] = Section::find($id);
 
-        return is_null($s) ? Qs::goWithDanger('sections.index') :view('pages.support_team.sections.edit', $d);
+        return view('pages.support_team.sections.edit', $d);
     }
 
-    public function update(SectionUpdate $req, $id)
+    public function update(Request $req, $id)
     {
-        $data = $req->only(['name', 'teacher_id']);
-        $this->my_class->updateSection($id, $data);
+        $id = Qs::decodeHash($id);
+        $update = Section::find($id);
+        $update->name =  $req->name;
+        $update->save();
 
-        return Qs::jsonUpdateOk();
+        return redirect()->route('sections.index')->with('msg',"Successfully updated");
     }
 
     public function destroy($id)
     {
-        if($this->my_class->isActiveSection($id)){
-            return back()->with('pop_warning', 'Every class must have a default section, You Cannot Delete It');
-        }
-
-        $this->my_class->deleteSection($id);
-        return back()->with('flash_success', __('msg.del_ok'));
+        $id = Qs::decodeHash($id);
+        $delete = Section::find($id);
+        $delete->delete();
+        return back()->with('msg', __('Successfully deleted'));
     }
 
 }

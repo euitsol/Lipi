@@ -140,21 +140,22 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('students', 'StudentRecordController');
         Route::resource('users', 'UserController');
-        Route::resource('semester', 'semesterController');
         Route::resource('sections', 'SectionController');
-        Route::resource('semester_details', 'semesterDetailsController');
         Route::resource('nameSubjects', 'Nsubjectcontroller');
         Route::resource('grades', 'GradeController');
         Route::resource('exams', 'ExamController');
         Route::resource('dorms', 'DormController');
         Route::resource('payments', 'PaymentController');
-
+        
         //Routes::::::::::::::::::::::Nobir
         Route::resource('departments', 'departmentController');
         Route::resource('classRoom', 'ClassRoomController');
         Route::resource('notice', 'noticeController');
         Route::resource('teachers', 'TeacherController');
         Route::resource('userCreation', 'userCreationController');
+        Route::resource('semester_details', 'semesterDetailsController');
+        Route::resource('semester', 'semesterController');
+        Route::resource('routine', 'routineController');
 
     });
 

@@ -282,5 +282,9 @@
     }
 
 
+    // $('select.semester-name').onChange(function (e){
+    //     alert('ok');
+    // });
+
 
 </script>
