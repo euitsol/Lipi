@@ -129,7 +129,8 @@
                                                     {{--Delete--}}
                                                     @if(Qs::userIsSuperAdmin())
                                                         <a id="{{ Qs::hash($s->id) }}" onclick="confirmDelete(this.id)" href="#" class="dropdown-item"><i class="icon-trash"></i> Delete</a>
-                                                        {{-- <form method="post" id="item-delete-{{Qs::hash($s->id }}" action="{{ route('semester_details.destroy', Qs::hash($s->id)) }}" class="hidden">@csrf @method('delete')</form> --}}
+
+                                                        <form method="post" id="item-delete-{{Qs::hash($s->id )}}" action="{{ route('semester_details.destroy', Qs::hash($s->id)) }}" class="hidden">@csrf @method('delete')</form>
                                                     @endif
 
                                                 </div>

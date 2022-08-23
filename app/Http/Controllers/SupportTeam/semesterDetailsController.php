@@ -117,6 +117,6 @@ class semesterDetailsController extends Controller
         $delete = Semester_detail::find($id);
         $delete->delete();
         
-        return back()->with('flash_success', __('msg.del_ok'));
+        return back()->with('msg', __('Seccessfully deleted'));
     }
 }
