@@ -16,12 +16,13 @@ class CreateSemesterDetailsTable extends Migration
         Schema::create('semester_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('department_id');
-            $table->unsignedInteger('semester_id');
+            $table->unsignedBigInteger('semester_id');
             $table->unsignedBigInteger('subject_id');
             $table->unsignedBigInteger('teacher_id');
             $table->timestamps();
+            
             $table->foreign('department_id')->references('id')->on("departments")->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('semester_id')->references('class_type_id')->on("my_classes")->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('semester_id')->references('id')->on("semesters")->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('subject_id')->references('id')->on("subject_n")->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('teacher_id')->references('id')->on("teachers")->onUpdate('cascade')->onDelete('cascade');
         });

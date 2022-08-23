@@ -155,19 +155,11 @@
                     {{--Manage Semester--}}
                     <li class="nav-item">
                             {{-- write semester instead  --}}
-                        <a href="{{ route('classes.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classes.index','classes.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester</span></a>
+                        <a href="{{ route('semester.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['semester.index','semester.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester</span></a>
                     </li>
                     {{--Manage Subjects--}}
                     <li class="nav-item">
                         <a href="{{ route('semester_details.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['semester_details.index','semester_details.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Semester Details</span></a>
-                    </li>
-                    {{--Manage Subjects--}}
-                    <li class="nav-item">
-                        <a href="{{ route('semester_details.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['semester_details.index','semester_details.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> FTP check</span></a>
-                    </li>
-                    {{--Manage Subjects--}}
-                    <li class="nav-item">
-                        <a href="{{ route('semester_details.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['semester_details.index','semester_details.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> FTP check done</span></a>
                     </li>
 
                     {{--Manage Class Room--}}

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('page_title', 'Edit Class - '.$c->name)
+@section('page_title', 'Edit Semester - '.$c->name)
 @section('content')
 
     <div class="card">
@@ -11,7 +11,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <form class="ajax-update" data-reload="#page-header" method="post" action="{{ route('classes.update', $c->id) }}">
+                    <form class="ajax-update" data-reload="#page-header" method="post" action="{{ route('semester.update', $c->id) }}">
                         @csrf @method('PUT')
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label font-weight-semibold">Name <span class="text-danger">*</span></label>

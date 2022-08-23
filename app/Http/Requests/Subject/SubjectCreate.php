@@ -31,7 +31,7 @@ class SubjectCreate extends FormRequest
     public function attributes()
     {
         return  [
-            'departments_id' => 'required',
+            'departments_id' => 'Department Name',
             'my_class_id' => 'required',
             'teacher_id' => 'required',
             'subject_id' => 'required'
