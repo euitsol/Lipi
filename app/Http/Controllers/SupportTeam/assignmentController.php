@@ -10,6 +10,7 @@ use App\Models\assignment_given;
 use App\Helpers\Qs;
 use App\Models\semester;
 use App\Models\Section;
+use App\Models\assignmentSumbit;
 
 class assignmentController extends Controller
 {
@@ -23,8 +24,25 @@ class assignmentController extends Controller
         
         $semester = semester::all();
         $section = Section::all();
-        $data = assignment_given::all();
-        return view("pages.support_team.assignment.index",compact("data",'semester','section'));
+        if(Auth::user()->user_roll=="admin"){
+            $data = assignment_given::all();
+        }
+        elseif(Auth::user()->user_roll=="super_admin"){
+            $data = assignment_given::all();
+        }else{
+            $data = assignment_given::where('user_id', Auth::user()->user_id);
+        }
+        $current_date = date("Y-m-d");
+        $d=[];
+        $d['new_assignment'] = assignment_given::where('end_date','>=',$current_date)
+                                            ->where('start_date','<=',$current_date)->get();
+        $d['new_assignment2'] = assignment_given::where('end_date','>=',$current_date)
+                                            ->where('start_date','<=',$current_date)->get();
+        
+        $d['submitted_assignment'] = assignmentSumbit::where('user_id','=',Auth::user()->user_id)->get();
+        // dd($new_assignment);
+        
+        return view("pages.support_team.assignment.index",compact("data",'semester','section'),$d);
     }
 
     /**
@@ -51,6 +69,8 @@ class assignmentController extends Controller
         $insert->group = $request->group;
         $insert->assignment_title = $request->assignment_title;
         $insert->user_id = Auth::user()->user_id;
+        $insert->start_date = $request->start_date;
+        $insert->end_date = $request->end_date;
         
         if($request->hasFile('assignment_file')) {
             $assignment_file = $request->file('assignment_file');
@@ -60,6 +80,26 @@ class assignmentController extends Controller
             $insert->assignment_file = asset('storage/' . $f['path_assignment_file']);
         }
 
+        $insert->save();
+        return  Qs::jsonStoreOk();
+    }
+
+
+    //Assignment Submit by students
+    public function assignmentSubmit(Request $request){
+
+        $insert = new assignmentSumbit;
+
+        $insert->user_id = Auth::user()->user_id;
+        $insert->assignment_given_id = Qs::decodeHash($request->assignment_given_id);
+        // $insert->assignment_submited_file = Auth::user()->user_id;
+        if($request->hasFile('assignment_submited_file')) {
+            $assignment_submited_file = $request->file('assignment_submited_file');
+            $f = Qs::getFileMetaData($assignment_submited_file);
+            $f['name_assignment_submited_file'] = 'nobir_'.time().'.' . $f['ext'];
+            $f['path_assignment_submited_file'] = $assignment_submited_file->storeAs(Qs::getUploadPath('assignment_submited_file'), $f['name_assignment_submited_file']);
+            $insert->assignment_submited_file = asset('storage/' . $f['path_assignment_submited_file']);
+        }
         $insert->save();
         return  Qs::jsonStoreOk();
     }

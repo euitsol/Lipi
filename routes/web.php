@@ -157,6 +157,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('semester', 'semesterController');
         Route::resource('routine', 'routineController');
         Route::resource('assignment', 'assignmentController');
+        Route::post('assignmentSubmit', 'assignmentController@assignmentSubmit')->name('assignmentSubmit');
 
     });
 
