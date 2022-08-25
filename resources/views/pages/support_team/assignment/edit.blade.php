@@ -4,7 +4,7 @@
 
     <div class="card">
         <div class="card-header header-elements-inline">
-            <h6 class="card-title">Edit Notice</h6>
+            <h6 class="card-title">Edit Assignment</h6>
             {!! Qs::getPanelOptions() !!}
         </div>
 
@@ -78,6 +78,17 @@
                             action="{{ route('assignment.update', $data->id) }}">
                             @csrf @method('PUT')
 
+                            <div class="form-group row">
+                                <label for="assignment_name" class="col-lg-3 col-form-label font-weight-semibold">Assignment Name <span class="text-danger">*</span></label>
+                                <div class="col-lg-9">
+                                    <select required data-placeholder="Select Semester" class="form-control select" name="assignment_name" id="assignment_name">
+                                        <option value=""></option>
+                                        @foreach($semester as $c)
+                                            <option {{ old('assignment_name') == $c->id ? 'selected' : '' }} value="{{ Qs::hash($c->id) }}">{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label font-weight-semibold">Assignment file:<span
                                         class="text-danger">*</span></label>
