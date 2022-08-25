@@ -34,7 +34,7 @@
 
 
                             <div class="form-group ">
-                                <input type="text" class="form-control" name="identity" value="{{ old('identity') }}" placeholder="Login ID or Email">
+                                <input type="text" class="form-control" name="user_id" value="{{ old('identity') }}" placeholder="Login ID or E-mail">
                             </div>
 
                             <div class="form-group ">
@@ -57,6 +57,9 @@
                                 <button type="submit" class="btn btn-primary btn-block">Sign in <i class="icon-circle-right2 ml-2"></i></button>
                             </div>
 
+                           <div class="form-group">
+                                <a href="{{route('register')}}" class="btn btn-light btn-block"><i class="icon-home"></i> Registration</a>
+                            </div>
                            {{-- <div class="form-group">
                                 <a href="#" class="btn btn-light btn-block"><i class="icon-home"></i> Back to Home</a>
                             </div>--}}

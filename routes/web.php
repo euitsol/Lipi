@@ -7,6 +7,7 @@ Auth::routes();
 Route::get('/privacy-policy', 'HomeController@privacy_policy')->name('privacy_policy');
 Route::get('/terms-of-use', 'HomeController@terms_of_use')->name('terms_of_use');
 
+//exam routes
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -140,19 +141,22 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('students', 'StudentRecordController');
         Route::resource('users', 'UserController');
-        Route::resource('teachers', 'TeacherController');
-        Route::resource('classes', 'MyClassController');
         Route::resource('sections', 'SectionController');
-        Route::resource('semester_details', 'SubjectController');
         Route::resource('nameSubjects', 'Nsubjectcontroller');
         Route::resource('grades', 'GradeController');
         Route::resource('exams', 'ExamController');
         Route::resource('dorms', 'DormController');
         Route::resource('payments', 'PaymentController');
-        // Nobir classRome
+        
+        //Routes::::::::::::::::::::::Nobir
         Route::resource('departments', 'departmentController');
         Route::resource('classRoom', 'ClassRoomController');
         Route::resource('notice', 'noticeController');
+        Route::resource('teachers', 'TeacherController');
+        Route::resource('userCreation', 'userCreationController');
+        Route::resource('semester_details', 'semesterDetailsController');
+        Route::resource('semester', 'semesterController');
+        Route::resource('routine', 'routineController');
 
     });
 

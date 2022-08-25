@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\Qs;
 use App\Repositories\UserRepo;
 
@@ -38,10 +38,15 @@ class HomeController extends Controller
     public function dashboard()
     {
         $d=[];
-        if(Qs::userIsTeamSAT()){
-            $d['users'] = $this->user->getAll();
-        }
+        // if(Qs::usersWithTeachers()){
 
-        return view('pages.support_team.dashboard', $d);
+        //     $d['users'] = $this->user->getAll();
+        // }
+        $user = Auth::user();
+        // dd($user->user_id);
+        $d["users"] = $user;
+
+
+        return view('pages.support_team.dashboard',$d);
     }
 }
