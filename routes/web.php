@@ -7,7 +7,6 @@ Auth::routes();
 Route::get('/privacy-policy', 'HomeController@privacy_policy')->name('privacy_policy');
 Route::get('/terms-of-use', 'HomeController@terms_of_use')->name('terms_of_use');
 
-//exam routes
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -157,6 +156,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('semester_details', 'semesterDetailsController');
         Route::resource('semester', 'semesterController');
         Route::resource('routine', 'routineController');
+        Route::resource('assignment', 'assignmentController');
 
     });
 
