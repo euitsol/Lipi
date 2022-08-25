@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SupportTeam;
 
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\assignment_given;
@@ -126,6 +127,11 @@ class assignmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id = Qs::decodeHash($id);
+        $delete = assignment_given::find($id);
+        $path = $delete->assignment_file;
+        Storage::exists($path)? Storage::deleteDirectory($path): false;
+        $delete->delete();
+        return redirect()->back()->with("msg", 'Successfully Deleted');
     }
 }
