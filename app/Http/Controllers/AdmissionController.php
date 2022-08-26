@@ -14,6 +14,7 @@ use App\Repositories\MyClassRepo;
 use App\Repositories\StudentRepo;
 use App\Repositories\UserRepo;
 use App\Models\admissionModel;
+use App\Models\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -46,12 +47,13 @@ class AdmissionController extends Controller
     public function create()
     {
         // echo "Admission";
-        $data['my_classes'] = $this->my_class->all();
-        $data['parents'] = $this->user->getUserByType('parent');
-        $data['dorms'] = $this->student->getAllDorms();
-        $data['states'] = $this->loc->getStates();
-        $data['nationals'] = $this->loc->getAllNationals();
-        return view('pages.support_team.admission.add', $data);
+        // $data['states'] = $this->loc->getStates();
+        // $data['my_classes'] = $this->my_class->all();
+        // $data['parents'] = $this->user->getUserByType('parent');
+        // $data['dorms'] = $this->student->getAllDorms();
+        // $data['nationals'] = $this->loc->getAllNationals();
+        // dd($data['nationals']);
+        return view('pages.support_team.admission.add');
     }
 
     public function store(Request $req)
