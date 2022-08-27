@@ -3,23 +3,25 @@
 namespace App\Models;
 
 use Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
-class MyClass extends Eloquent
+class MyClass extends Model
 {
-    protected $fillable = ['name', 'class_type_id'];
+    protected $table = 'semesters';
+    // protected $fillable = ['name', 'class_type_id'];
 
-    public function section()
-    {
-        return $this->hasMany(Section::class);
-    }
+    // public function section()
+    // {
+    //     return $this->hasMany(Section::class);
+    // }
 
-    public function class_type()
-    {
-        return $this->belongsTo(ClassType::class);
-    }
+    // public function class_type()
+    // {
+    //     return $this->belongsTo(ClassType::class);
+    // }
 
-    public function student_record()
-    {
-        return $this->hasMany(StudentRecord::class);
-    }
+    // public function student_record()
+    // {
+    //     return $this->hasMany(StudentRecord::class);
+    // }
 }
