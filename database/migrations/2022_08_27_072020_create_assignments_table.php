@@ -17,13 +17,14 @@ class CreateAssignmentsTable extends Migration
             $table->id();
             $table->string('user_id')->nullable();
             $table->string('semester_name');
-            $table->string('group');
+            $table->string('group')->nullable();
             $table->string('assignment_title');
             $table->string('assignment_given_file');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('student_user_id')->nullable();         
             $table->string('assignment_taken_file')->nullable();
+            $table->string('user_roll');         
             $table->timestamps();
         });
     }
@@ -35,6 +36,7 @@ class CreateAssignmentsTable extends Migration
      */
     public function down()
     {
+        
         Schema::dropIfExists('assignments');
     }
 }

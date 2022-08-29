@@ -37,57 +37,26 @@
                 <div class="tab-content">
 
                     <div class="tab-pane fade show active" id="all-classes">
-                        <h3 class="">Assignments</h3>
+                        <h3 class="">Assignments that submited by students</h3>
                         <table class="table datatable-button-html5-columns">
                             <thead>
                                 <tr>
                                     <th>S/N</th>
                                     <th>Assignment Title</th>
-                                    <th>Assignment</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Action</th>
+                                    <th>{{ 'Assignment(Answer)' }}</th>
+                                    <th>Submited Time</th>
+                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $c)
+                                @foreach ($assignments_taken as $c)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $c->assignment_title }}</td>
                                         <td><a target="_nobir"
-                                                href="{{ $c->assignment_file }}">{{ $c->assignment_file }}</a>
+                                                href="{{ $c->assignment_taken_file }}">{{ $c->assignment_taken_file }}</a>
                                         </td>
-                                        <td>{{ $c->start_date }}</td>
-                                        <td>{{ $c->end_date }}</td>
-                                        <td class="text-center">
-                                            <div class="list-icons">
-                                                <div class="dropdown">
-                                                    <a href="#" class="list-icons-item" data-toggle="dropdown">
-                                                        <i class="icon-menu9"></i>
-                                                    </a>
-
-                                                    <div class="dropdown-menu dropdown-menu-left">
-                                                        @if (Qs::userIsTeamSA())
-                                                            {{-- Edit --}}
-
-                                                            <a href="{{ route('assignment.edit', Qs::hash($c->id)) }}"
-                                                                class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
-                                                        @endif
-                                                        @if (Qs::userIsSuperAdmin())
-                                                            {{-- Delete --}}
-                                                            <a id="{{ Qs::hash($c->id) }}" onclick="confirmDelete(this.id)"
-                                                                href="#" class="dropdown-item"><i
-                                                                    class="icon-trash"></i>
-                                                                Delete</a>
-                                                            <form method="post" id="item-delete-{{ Qs::hash($c->id) }}"
-                                                                action="{{ route('assignment.destroy', Qs::hash($c->id)) }}"
-                                                                class="hidden">@csrf @method('delete')</form>
-                                                        @endif
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <td>{{ $c->update_at->diffForHumans() }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -196,6 +165,8 @@
                                 <thead>
                                     <tr>
                                         <th>S/N</th>
+                                        <th>Semester</th>
+                                        <th>Group</th>
                                         <th>Assignment Title</th>
                                         <th>Assignment</th>
                                         <th>Start Date</th>
@@ -204,12 +175,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $c)
+                                    @foreach ($assignments_given as $c)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $c->semester_name }}</td>
+                                            <td>{{ $c->group }}</td>
                                             <td>{{ $c->assignment_title }}</td>
                                             <td><a target="_nobir"
-                                                    href="{{ $c->assignment_file }}">{{ $c->assignment_file }}</a>
+                                                    href="{{ $c->assignment_given_file }}">{{ $c->assignment_given_file }}</a>
                                             </td>
                                             <td>{{ $c->start_date }}</td>
                                             <td>{{ $c->end_date }}</td>
@@ -297,7 +270,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $new_assignment->assignment_title }}</td>
                                     <td><a target="_nobir"
-                                            href="{{ $new_assignment->assignment_file }}">{{ $new_assignment->assignment_file }}</a>
+                                            href="{{ $new_assignment->assignment_given_file }}">{{ $new_assignment->assignment_given_file }}</a>
                                     </td>
                                     <td>{{ $new_assignment->start_date }}</td>
                                     <td>{{ $new_assignment->end_date }}</td>
@@ -312,8 +285,8 @@
 
                 {{-- * Submit assignment --}}
                 <h4 class="text-center mb-3 text-success">Submit Assignment</h4>
-                {{--  --}}
-                <form class="ajax-store  mb-4" method="post" enctype="multipart/form-data"
+                {{-- class="ajax-store" --}}
+                <form class="ajax-store mb-4" method="post" enctype="multipart/form-data"
                     action="{{ route('assignmentSubmit') }}">
                     @csrf
 
@@ -324,7 +297,7 @@
                         <div class="col-lg-9">
                             {{-- @dd($new_assignment) --}}
                             <select required data-placeholder="Select Semester" class="form-control select"
-                                name="assignment_given_id" id="assignment_given_id">
+                                name="assignment_id" id="assignment_given_id">
                                 <option value="">Select Assignment</option>
 
                                 @foreach ($new_assignment2 as $new_assignment)
@@ -373,21 +346,21 @@
                             </thead>
                             <tbody>
                                 {{-- @dd($submitted_assignment) --}}
-                                @foreach ($submitted_assignment as $c)
+                                @foreach ($assignment_submited_by_st as $c)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $c->assignment_given->assignment_title }}</td>
+                                        <td>{{ $c->assignment_title }}</td>
                                         <td>
-                                            <a target="_nobir" href="{{ $c->assignment_given->assignment_file }}">
-                                                {{ $c->assignment_given->assignment_file }}
+                                            <a target="_nobir" href="{{ $c->assignment_given_file }}">
+                                                {{ $c->assignment_given_file }}
                                             </a>
                                         </td>
                                         <td>
-                                            <a target="_nobir" href="{{ $c->assignment_submited_file }}">
-                                                {{ $c->assignment_submited_file }}
+                                            <a target="_nobir" href="{{ $c->assignment_taken_file }}">
+                                                {{ $c->assignment_taken_file }}
                                             </a>
                                         </td>
-                                        <td>{{ $c->assignment_given->start_date . ' => ' . $c->assignment_given->end_date }}
+                                        <td>{{ $c->start_date . ' => ' . $c->end_date }}
                                         </td>
                                     </tr>
                                 @endforeach

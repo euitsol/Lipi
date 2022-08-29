@@ -13,6 +13,7 @@ use App\Helpers\Qs;
 use App\Models\semester;
 use App\Models\Section;
 use App\Models\assignmentSumbit;
+use App\Models\studentInfo;
 
 class assignmentController extends Controller
 {
@@ -28,34 +29,61 @@ class assignmentController extends Controller
         $d["semester"] = semester::all();
         $d["section"] = Section::all();
         
-        if(Auth::user()->user_roll=="admin"){
-            $d["assignments_given"] = assignment::where('user_id', Auth::user()->user_id)->get();
-            $d["assignments_taken"] = assignment::where('user_id','!='. Auth::user()->user_id)->get();
-        }
-        elseif(Auth::user()->user_roll=="super_admin"){
-            $d["assignments_given"] = assignment::where('user_id', Auth::user()->user_id)->get();
-            $d["assignments_taken"] = assignment::where('user_id','!='. Auth::user()->user_id)->get();
-        }
-        elseif(Auth::user()->user_roll=="teacher"){
-            $d["assignments_given"] = assignment::where('user_id', Auth::user()->user_id)->get();
-            $d["assignments_taken"] = assignment::where('user_id','!='. Auth::user()->user_id)->get();
-        }
-        elseif(Auth::user()->user_roll=="student"){
-            $user_id = Auth::user()->user_id;
-            $current_date = date("Y-m-d");
-            $d["new_assignment"] = assignment::where('user_id', Auth::user()->user_id)->where('user_id', Auth::user()->user_id)->get();
-            $d["assignments_taken"] = assignment::where('user_id','!='. Auth::user()->user_id)->get();
-        }
+            $d["assignments_given"] = assignment::where('user_id', Auth::user()->user_id)
+                                    ->where('user_roll','=',Auth::user()->user_roll)
+                                    ->get();
+            $d["assignments_taken"] = assignment::where('user_id', Auth::user()->user_id)
+                                    ->where('user_roll','=','student')
+                                    ->get();
         
-       
-        // $d=[];
-        // $d['new_assignment'] = assignment::where('end_date','>=',$current_date)
-        //                                     ->where('start_date','<=',$current_date)->get();
-        // $d['new_assignment2'] = assignment::where('end_date','>=',$current_date)
-        //                                     ->where('start_date','<=',$current_date)->get();
-        
+        $current_date= date("Y-m-d");
+        // dd($current_date);
+        if(Auth::user()->user_roll=='student')
+        {
+            
+            $student_locate = studentInfo::where('user_id', Auth::user()->user_id)->first();
+            // $assignment_info = assignment::where('user_id', Auth::user()->user_id)->first();
+            // dd($student_locate);
+            $semester = $student_locate->semester_name;
+            $group = $student_locate->group_name;
+           
+            // dd($semester,$group);
+            $d['assignment_submited_by_st'] = assignment::where('student_user_id', Auth::user()->user_id)
+                                            ->where('user_roll','=',Auth::user()->user_roll)
+                                            ->where('semester_name','=',$semester)
+                                            ->where('group','=',$group)
+                                            ->get();
+            
+            $d['new_assignment'] = assignment::where('start_date','<=',$current_date)
+                                    ->where('end_date','>=',$current_date)
+                                    ->where('student_user_id','=',null)
+                                    ->where('semester_name','=',$semester)
+                                    ->where('group','=',$group)
+                                    ->get();
+                                    
+            $d['new_assignment2'] = assignment::where('start_date','<=',$current_date)
+                                    ->where('end_date','>=',$current_date)
+                                    ->where('student_user_id','=',null)
+                                    ->where('semester_name','=',$semester)
+                                    ->where('group','=',$group)
+                                    ->get();
+                                    
+            // Upcoming Feature Cause A field status have to add name status
+            $d['upcomming_assignment'] = assignment::where('start_date','<=',$current_date)
+                                        ->where('end_date','<=',$current_date)
+                                        ->where('student_user_id','==' ,null)
+                                        ->where('semester_name','=',$semester)
+                                        ->where('group','=',$group)
+                                        ->get();
+
+                                        // dd( $d['new_assignment'],$d['assignment_submited_by_st']);
+                                       
+          
+            
+     
+        }    
         // $d['submitted_assignment'] = assignment::where('user_id','=',Auth::user()->user_id)->get();
-        // dd($new_assignment);
+        // dd($d['new_assignment']);
         
         return view("pages.support_team.assignment.index",$d);
     }
@@ -86,6 +114,7 @@ class assignmentController extends Controller
         $insert->assignment_title = $request->assignment_title;
         $insert->start_date = $request->start_date;
         $insert->end_date = $request->end_date;
+        $insert->user_roll = Auth::user()->user_roll;
         
         // $insert->student_user_id = $request->student_user_id;
         // $insert->assignment_taken_file = $request->assignment_taken_file;
@@ -106,16 +135,26 @@ class assignmentController extends Controller
     //Assignment Submit by students
     public function assignmentSubmit(Request $request){
 
-        $insert = new assignmentSumbit;
-
-        $insert->user_id = Auth::user()->user_id;
-        $insert->assignment_given_id = Qs::decodeHash($request->assignment_given_id);
-        // $insert->assignment_submited_file = Auth::user()->user_id;
-        if($request->hasFile('assignment_taken_file')) {
-            $file = $request->file('assignment_taken_file');
+        $insert = new assignment;
+        $id = Qs::decodeHash($request->assignment_id);
+        
+        $assignment_info = assignment::find($id);
+        
+        $insert->user_id = $assignment_info->user_id;
+        $insert->semester_name = $assignment_info->semester_name;
+        $insert->group = $assignment_info->group;
+        $insert->assignment_title = $assignment_info->assignment_title;
+        $insert->assignment_given_file = $assignment_info->assignment_given_file;
+        $insert->start_date = $assignment_info->start_date;
+        $insert->end_date = $assignment_info->end_date;
+        $insert->student_user_id = Auth::user()->user_id;
+        $insert->user_roll = Auth::user()->user_roll;
+    
+        if($request->hasFile('assignment_submited_file')) {
+            $file = $request->file('assignment_submited_file');
             $f = Qs::getFileMetaData($file);
             $f['name_file'] = 'nobir_'.time().'.' . $f['ext'];
-            $f['path_file'] = $file->storeAs(Qs::getUploadPath('file'), $f['name_file']);
+            $f['path_file'] = $file->storeAs(Qs::getUploadPath('assignment_submited_file'), $f['name_file']);
             $insert->assignment_taken_file = asset('storage/' . $f['path_file']);
         }
         $insert->save();
