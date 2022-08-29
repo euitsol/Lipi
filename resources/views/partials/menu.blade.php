@@ -53,6 +53,9 @@
                 </li>
 
                 {{-- Academics --}}
+                @isset(Qs::UserAccess()[0])
+                    
+                
                 @if (Qs::UserAccess()[0]->assignment == 'yes')
                     {{-- Manage Assignments --}}
                     <li class="nav-item">
@@ -334,7 +337,7 @@
                         </ul>
                     </li>
                 @endif
-
+            @endisset
 
                 {{-- End Exam --}}
 
