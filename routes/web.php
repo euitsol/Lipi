@@ -154,12 +154,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('teachers', 'TeacherController');
         Route::resource('userCreation', 'userCreationController');
         Route::resource('semester_details', 'semesterDetailsController');
-        Route::resource('attendance', 'attendanceController');
         Route::resource('semester', 'semesterController');
         Route::resource('routine', 'routineController');
         Route::resource('assignment', 'assignmentController');
         Route::resource('userRollCreation', 'userRollController');
         Route::post('assignmentSubmit', 'assignmentController@assignmentSubmit')->name('assignmentSubmit');
+        // sakib
+        Route::resource('attendance', 'attendanceController');
+        Route::get('/attendance_student_list','attendanceController@attendance_student_list_view')->name('attendance_student_list');
 
     });
 
