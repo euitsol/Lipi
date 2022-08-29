@@ -65,6 +65,16 @@
                     </li>
                 @endif
 
+                {{-- Manage Attendance --}}
+
+                {{-- @if (Qs::UserAccess()[0]->attendance == 'yes') --}}
+                    <li class="nav-item">
+                        <a href="{{ route('attendance.index') }}"
+                            class="nav-link {{ in_array(Route::currentRouteName(), ['attendance.index', 'attendance.edit']) ? 'active' : '' }}"><i
+                                class="icon-windows2"></i> <span> Attendance</span></a>
+                    </li>
+                {{-- @endif --}}
+
                 {{-- Administrative --}}
                 @if (Qs::userIsAdministrative())
                     <li
@@ -264,7 +274,7 @@
                 </li>
 
                 {{-- Manage Sections --}}
-                @if (Qs::UserAccess()[0]->section == 'yes')
+                @if (Qs::UserAccess()[0]->group == 'yes')
                     <li class="nav-item">
                         <a href="{{ route('sections.index') }}"
                             class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index', 'sections.edit']) ? 'active' : '' }}"><i
