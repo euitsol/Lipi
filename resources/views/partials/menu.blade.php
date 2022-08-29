@@ -55,6 +55,34 @@
                 {{-- Academics --}}
                 @isset(Qs::UserAccess()[0])
 
+                    
+                
+                @if (Qs::UserAccess()[0]->assignment == 'yes')
+                    {{-- Manage Assignments --}}
+                    <li class="nav-item">
+                        <a href="{{ route('assignment.index') }}"
+                            class="nav-link {{ in_array(Route::currentRouteName(), ['assignment.index', 'assignment.edit']) ? 'active' : '' }}"><i
+                                class="icon-windows2"></i> <span> Assignment</span></a>
+                    </li>
+                @endif
+
+                {{-- Manage Attendance --}}
+
+                {{-- @if (Qs::UserAccess()[0]->attendance == 'yes') --}}
+                    <li class="nav-item">
+                        <a href="{{ route('attendance.index') }}"
+                            class="nav-link {{ in_array(Route::currentRouteName(), ['attendance.index', 'attendance.edit']) ? 'active' : '' }}"><i
+                                class="icon-windows2"></i> <span> Attendance</span></a>
+                    </li>
+                {{-- @endif --}}
+
+                {{-- Administrative --}}
+                @if (Qs::userIsAdministrative())
+                    <li
+                        class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.create', 'payments.invoice', 'payments.receipts', 'payments.edit', 'payments.manage', 'payments.show']) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                        <a href="#" class="nav-link"><i class="icon-office"></i> <span> Administrative</span></a>
+
+
 
                     @if (Qs::UserAccess()[0]->assignment == 'yes')
                         {{-- Manage Assignments --}}
@@ -172,6 +200,7 @@
                             class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['userCreation.index', 'userRollCreation.index', 'userCreation.create', 'userCreation.invoice', 'userCreation.receipts', 'userCreation.edit', 'userCreation.manage', 'userCreation.show']) ? 'nav-item-expanded nav-item-open' : '' }} ">
                             <a href="#" class="nav-link"><i class="icon-office"></i> <span> user</span></a>
 
+
                             <ul class="nav nav-group-sub">
                                 <li class="nav-item"><a href="{{ route('userRollCreation.index') }}"
                                         class="nav-link {{ in_array(Route::currentRouteName(), ['userRollCreation.index', 'userRollCreation.edit', 'userRollCreation.show']) ? 'active' : '' }}">Create
@@ -189,6 +218,16 @@
                                         Access Managment
                                     </a></li>
                             </ul>
+
+                {{-- Manage Deparment --}}
+                @if (Qs::UserAccess()[0]->department == 'yes')
+                    <li class="nav-item">
+                        <a href="{{ route('departments.index') }}"
+                            class="nav-link {{ in_array(Route::currentRouteName(), ['departments.index', 'departments.edit']) ? 'active' : '' }}"><i
+                                class="icon-windows2"></i> <span> Department</span></a>
+                    </li>
+                @endif
+
 
 
                         </li>
@@ -245,6 +284,17 @@
                                     class="icon-home9"></i> <span> Class Room</span></a>
                         </li>
                     @endif
+
+
+
+                {{-- Manage Sections --}}
+                @if (Qs::UserAccess()[0]->group == 'yes')
+                    <li class="nav-item">
+                        <a href="{{ route('sections.index') }}"
+                            class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index', 'sections.edit']) ? 'active' : '' }}"><i
+                                class="icon-fence"></i> <span>Group</span></a>
+                    </li>
+                @endif
 
 
                     {{-- Manage Notice --}}
