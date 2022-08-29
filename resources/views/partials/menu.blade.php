@@ -55,33 +55,6 @@
                 {{-- Academics --}}
                 @isset(Qs::UserAccess()[0])
 
-                    
-                
-                @if (Qs::UserAccess()[0]->assignment == 'yes')
-                    {{-- Manage Assignments --}}
-                    <li class="nav-item">
-                        <a href="{{ route('assignment.index') }}"
-                            class="nav-link {{ in_array(Route::currentRouteName(), ['assignment.index', 'assignment.edit']) ? 'active' : '' }}"><i
-                                class="icon-windows2"></i> <span> Assignment</span></a>
-                    </li>
-                @endif
-
-                {{-- Manage Attendance --}}
-
-                {{-- @if (Qs::UserAccess()[0]->attendance == 'yes') --}}
-                    <li class="nav-item">
-                        <a href="{{ route('attendance.index') }}"
-                            class="nav-link {{ in_array(Route::currentRouteName(), ['attendance.index', 'attendance.edit']) ? 'active' : '' }}"><i
-                                class="icon-windows2"></i> <span> Attendance</span></a>
-                    </li>
-                {{-- @endif --}}
-
-                {{-- Administrative --}}
-                @if (Qs::userIsAdministrative())
-                    <li
-                        class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.create', 'payments.invoice', 'payments.receipts', 'payments.edit', 'payments.manage', 'payments.show']) ? 'nav-item-expanded nav-item-open' : '' }} ">
-                        <a href="#" class="nav-link"><i class="icon-office"></i> <span> Administrative</span></a>
-
 
 
                     @if (Qs::UserAccess()[0]->assignment == 'yes')
@@ -92,6 +65,30 @@
                                     class="icon-windows2"></i> <span> Assignment</span></a>
                         </li>
                     @endif
+
+                    {{-- Manage Attendance --}}
+
+                    {{-- @if (Qs::UserAccess()[0]->attendance == 'yes') --}}
+                    <li class="nav-item">
+                        <a href="{{ route('attendance.index') }}"
+                            class="nav-link {{ in_array(Route::currentRouteName(), ['attendance.index', 'attendance.edit']) ? 'active' : '' }}"><i
+                                class="icon-windows2"></i> <span> Attendance</span></a>
+                    </li>
+                    {{-- @endif --}}
+                    {{-- Manage Assignments --}}
+                    {{-- @if (Qs::UserAccess()[0]->assignment == 'yes')
+                        <li class="nav-item">
+                            <a href="{{ route('assignment.index') }}"
+                                class="nav-link {{ in_array(Route::currentRouteName(), ['assignment.index', 'assignment.edit']) ? 'active' : '' }}"><i
+                                    class="icon-windows2"></i> <span> Assignment</span></a>
+                        </li>
+                    @endif --}}
+
+                    {{-- Administrative --}}
+                    {{-- @if (Qs::userIsAdministrative())
+                        <li
+                            class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['payments.index', 'payments.create', 'payments.invoice', 'payments.receipts', 'payments.edit', 'payments.manage', 'payments.show']) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                            <a href="#" class="nav-link"><i class="icon-office"></i> <span> Administrative</span></a> --}}
 
                     {{-- Administrative --}}
                     @if (Qs::userIsAdministrative())
@@ -137,6 +134,7 @@
                                     class="icon-users4"></i> <span> Teachers</span></a>
                         </li>
                     @endif
+
                     {{-- Manage Students --}}
                     <li
                         class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['students.create', 'students.list', 'students.edit', 'students.show', 'students.promotion', 'students.promotion_manage', 'students.graduated']) ? 'nav-item-expanded nav-item-open' : '' }} ">
@@ -206,32 +204,32 @@
                                         class="nav-link {{ in_array(Route::currentRouteName(), ['userRollCreation.index', 'userRollCreation.edit', 'userRollCreation.show']) ? 'active' : '' }}">Create
                                         User
                                         Roll
-                                    </a></li>
+                                    </a>
+                                </li>
 
                                 <li class="nav-item"><a href="{{ route('userCreation.index') }}"
                                         class="nav-link {{ in_array(Route::currentRouteName(), ['userCreation.index', 'userCreation.edit', 'userCreation.show']) ? 'active' : '' }}">User
                                         Id Assign
-                                    </a></li>
+                                    </a>
+                                </li>
 
                                 <li class="nav-item"><a href="{{ route('userCreation.index') }}"
                                         class="nav-link {{ in_array(Route::currentRouteName(), ['userCreation.index', 'userCreation.edit', 'userCreation.show']) ? 'active' : '' }}">User
                                         Access Managment
-                                    </a></li>
+                                    </a>
+                                </li>
                             </ul>
-
-                {{-- Manage Deparment --}}
-                @if (Qs::UserAccess()[0]->department == 'yes')
-                    <li class="nav-item">
-                        <a href="{{ route('departments.index') }}"
-                            class="nav-link {{ in_array(Route::currentRouteName(), ['departments.index', 'departments.edit']) ? 'active' : '' }}"><i
-                                class="icon-windows2"></i> <span> Department</span></a>
-                    </li>
-                @endif
-
-
-
                         </li>
                     @endif
+                    {{-- Manage Deparment --}}
+                    @if (Qs::UserAccess()[0]->department == 'yes')
+                        <li class="nav-item">
+                            <a href="{{ route('departments.index') }}"
+                                class="nav-link {{ in_array(Route::currentRouteName(), ['departments.index', 'departments.edit']) ? 'active' : '' }}"><i
+                                    class="icon-windows2"></i> <span> Department</span></a>
+                        </li>
+                    @endif
+
                     {{-- * End User Managment Details --}}
 
 
@@ -287,14 +285,14 @@
 
 
 
-                {{-- Manage Sections --}}
-                @if (Qs::UserAccess()[0]->group == 'yes')
-                    <li class="nav-item">
-                        <a href="{{ route('sections.index') }}"
-                            class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index', 'sections.edit']) ? 'active' : '' }}"><i
-                                class="icon-fence"></i> <span>Group</span></a>
-                    </li>
-                @endif
+                    {{-- Manage Sections --}}
+                    @if (Qs::UserAccess()[0]->group == 'yes')
+                        <li class="nav-item">
+                            <a href="{{ route('sections.index') }}"
+                                class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index', 'sections.edit']) ? 'active' : '' }}"><i
+                                    class="icon-fence"></i> <span>Group</span></a>
+                        </li>
+                    @endif
 
 
                     {{-- Manage Notice --}}
@@ -306,12 +304,6 @@
                         </li>
                     @endif
 
-
-                    {{-- Manage Dorms --}}
-                    {{-- @if (Qs::UserAccess()[0]->dorm == 'yes') --}}
-                    <li class="nav-item">
-                        {{-- <a href="{{ route('dorms.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['dorms.index','dorms.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Dormitories</span></a> --}}
-                    </li>
 
                     {{-- Manage Sections --}}
                     @if (Qs::UserAccess()[0]->group == 'yes')
