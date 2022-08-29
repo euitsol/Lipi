@@ -4,6 +4,16 @@ namespace App\Http\Controllers\SupportTeam;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\attendance;
+
+//Models
+
+use App\Models\departmentModel;
+use App\Models\n_subjectModel;
+use App\Models\Subject;
+use App\Models\semester;
+use App\Models\Semester_detail;
+
 
 class attendanceController extends Controller
 {
@@ -14,7 +24,15 @@ class attendanceController extends Controller
      */
     public function index()
     {
-        //
+        $query_semester_details =Semester_detail::all();
+        $d['department_db'] = departmentModel::all();
+        $d['subject_db'] = n_subjectModel::all();
+        $d['semester'] = semester::all();
+        // dd(semester::all());
+        // $d['teachers'] = $this->user->getUserByType('teacher');
+        // $d['subjects'] = $this->my_class->getAllSubjects();
+
+        return view('pages.support_team.attendance.index',$d,compact('query_semester_details'));
     }
 
     /**

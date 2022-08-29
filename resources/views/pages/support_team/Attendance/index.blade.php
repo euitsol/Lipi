@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('page_title', 'Manage Subjects')
+@section('page_title', 'Attendance')
 @section('content')
 
     <div class="card">
@@ -59,19 +59,6 @@
 
                                             @endforeach
                                          </select>
-                                    </div>
-                                </div>
-                               
-                                <div class="form-group row">
-                                    <label for="teacher_id" class="col-lg-3 col-form-label font-weight-semibold">Teacher <span class="text-danger">*</span></label>
-                                    <div class="col-lg-9">
-                                        <select required data-placeholder="Select Teacher" class="form-control" name="teacher_id" id="teacher_id">
-                                            <option value="">Select Teacher</option> 
-                                           
-                                            @foreach($teachers as $t)
-                                                <option {{ old('teacher_id') == Qs::hash($t->id) ? 'selected' : '' }} value="{{ Qs::hash($t->id) }}">{{ $t->name }}</option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                 </div>
 

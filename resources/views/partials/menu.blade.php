@@ -207,7 +207,7 @@
 
 
                 {{-- Manage Deparment --}}
-                @if (Qs::UserAccess()[0]->deparment == 'yes')
+                @if (Qs::UserAccess()[0]->department == 'yes')
                     <li class="nav-item">
                         <a href="{{ route('departments.index') }}"
                             class="nav-link {{ in_array(Route::currentRouteName(), ['departments.index', 'departments.edit']) ? 'active' : '' }}"><i
