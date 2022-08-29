@@ -15,6 +15,7 @@ class CreateStudentInfosTable extends Migration
     {
         Schema::create('student_infos', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id')->unique()->nullable();
             $table->string('name');
             $table->string('father_name');
             $table->string('mother_name');
