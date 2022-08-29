@@ -1,0 +1,56 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateStudentInfosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('student_infos', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('father_name');
+            $table->string('mother_name');
+            $table->string('present_address');
+            $table->string('parmanent_address');
+            $table->string('email')->nullable();
+            $table->string('gender');
+            $table->string('phone');
+            $table->string('phone2')->nullable();
+            $table->string('dob');
+            $table->string('Quota')->nullable();
+            $table->string('nationality');
+            $table->string('blood_group_name')->nullable();
+            $table->string('exam_name')->nullable();
+            $table->string('passing_year')->nullable();
+            $table->string('semester_name')->nullable();
+            $table->string('group_name')->nullable();
+            $table->string('roll')->nullable();
+            $table->string('registration_no')->nullable();
+            $table->string('cgpa')->nullable();
+            $table->string('reg_card')->nullable();
+            $table->string('marksheet')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('result')->nullable();
+            $table->string('status')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('student_infos');
+    }
+}

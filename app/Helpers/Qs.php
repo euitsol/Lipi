@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Models\Setting;
 use App\Models\StudentRecord;
 use App\Models\Subject;
+use App\Models\UserAccess;
 use Hashids\Hashids;
 use Illuminate\Support\Facades\Auth;
 
@@ -365,5 +366,13 @@ class Qs
     {
         return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     }
+    
 
+    
+    //* function by :::::::::::::::::::::::::Md Nobir Hasan::::::::::::::::::::::::::::::::::::::::::::::::
+    public static function UserAccess(){
+        // $editAccess = UserAccess::where('user_roll', '=', Auth::user()->user_roll)->get('edit');
+        
+        return UserAccess::where('user_roll', '=', Auth::user()->user_roll)->get();
+    }
 }
