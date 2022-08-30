@@ -111,6 +111,7 @@ class AdmissionController extends Controller
 //     ]);
     $insert = new admissionModel ;
 
+    $insert->Departments_id = $req->Departments_id;
     $insert->name = $req->name;
     $insert->father_name =  $req->father_name;
     $insert->mother_name = $req->mother_name;

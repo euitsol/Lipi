@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\studentInfo;
 
 class StudentRecordController extends Controller
 {
@@ -56,9 +57,6 @@ class StudentRecordController extends Controller
        $sr =  $req->only(Qs::getStudentData());
 
         $ct = $this->my_class->findTypeByClass($req->my_class_id)->code;
-       /* $ct = ($ct == 'J') ? 'JSS' : $ct;
-        $ct = ($ct == 'S') ? 'SS' : $ct;*/
-
         $data['user_type'] = 'student';
         $data['name'] = ucwords($req->name);
         $data['code'] = strtoupper(Str::random(10));
@@ -85,13 +83,15 @@ class StudentRecordController extends Controller
         return Qs::jsonStoreOk();
     }
 
-    public function listByClass($class_id)
+    public function listBySemester($semester_name)
     {
-        $data['my_class'] = $mc = $this->my_class->getMC(['id' => $class_id])->first();
-        $data['students'] = $this->student->findStudentsByClass($class_id);
-        $data['sections'] = $this->my_class->getClassSections($class_id);
+        $n['student_list'] = studentInfo::where('semester_name',$semester_name)->get();
+        $n['semester'] = studentInfo::where('semester_name',$semester_name)->first();
+        // $data['my_class'] = $mc = $this->my_class->getMC(['id' => $class_id])->first();
+        // $data['students'] = $this->student->findStudentsByClass($class_id);
+        // $data['sections'] = $this->my_class->getClassSections($class_id);
 
-        return is_null($mc) ? Qs::goWithDanger() : view('pages.support_team.students.list', $data);
+        return  view('pages.support_team.students.list', $n);
     }
 
     public function graduated()

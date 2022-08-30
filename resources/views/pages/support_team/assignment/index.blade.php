@@ -42,21 +42,32 @@
                             <thead>
                                 <tr>
                                     <th>S/N</th>
+                                    <th>Semester</th>
+                                    <th>Group</th>
+                                    <th>Student ID</th>
                                     <th>Assignment Title</th>
-                                    <th>{{ 'Assignment(Answer)' }}</th>
+                                    <th>{{ 'Assignment(given to students' }}</th>
+                                    <th>{{ 'Assignment(submitted by students' }}</th>
                                     <th>Submited Time</th>
-                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($assignments_taken as $c)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $c->semester_name }}</td>
+                                        <td>{{ $c->group }}</td>
+                                        <td>{{ $c->student_user_id }}</td>
                                         <td>{{ $c->assignment_title }}</td>
-                                        <td><a target="_nobir"
+                                        <td>
+                                            <a target="_nobir"
+                                                href="{{ $c->assignment_given_file }}">{{ $c->assignment_given_file }}</a>
+                                        </td>
+                                        <td>
+                                            <a target="_nobir"
                                                 href="{{ $c->assignment_taken_file }}">{{ $c->assignment_taken_file }}</a>
                                         </td>
-                                        <td>{{ $c->update_at->diffForHumans() }}</td>
+                                        <td>{{ $c->created_at->diffForHumans() }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -265,6 +276,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{-- @dd($new_assignment) --}}
                             @foreach ($new_assignment as $new_assignment)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
@@ -286,7 +298,7 @@
                 {{-- * Submit assignment --}}
                 <h4 class="text-center mb-3 text-success">Submit Assignment</h4>
                 {{-- class="ajax-store" --}}
-                <form class="ajax-store mb-4" method="post" enctype="multipart/form-data"
+                <form class=" mb-4" method="post" enctype="multipart/form-data"
                     action="{{ route('assignmentSubmit') }}">
                     @csrf
 
@@ -318,7 +330,8 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <button id="ajax-btn" type="submit" class="btn btn-primary">
+                        <button onclick="return confirm('Be sure,If you submited once,It will not be recoverable')"
+                            type="submit" class="btn btn-primary">
                             Submit form
                             <i class="icon-paperplane ml-2"></i>
                         </button>
@@ -329,7 +342,7 @@
 
                 <hr class="">
 
-                {{-- * Show Assignment that Have been past --}}
+                {{-- * Show Assignment that Have been submited --}}
                 <div class="tab-content">
 
                     <div class="tab-pane fade show active" id="all-classes">
@@ -341,7 +354,7 @@
                                     <th>Assignment Title</th>
                                     <th>Assignment</th>
                                     <th>Sumbit Assignment</th>
-                                    <th>Death Line</th>
+                                    <th>Submited Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -360,7 +373,39 @@
                                                 {{ $c->assignment_taken_file }}
                                             </a>
                                         </td>
-                                        <td>{{ $c->start_date . ' => ' . $c->end_date }}
+                                        <td>{{ $c->created_at->diffForHumans() }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {{-- * Show Assignment that Have been Over Dated --}}
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="all-classes">
+                        <h3 class="text-center text-danger">Assignment that you have missed</h3>
+                        <table class="table datatable-button-html5-columns">
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+                                    <th>Assignment Title</th>
+                                    <th>Assignment</th>
+                                    <th>Last Submited Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($date_over_assignment as $c)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $c->assignment_title }}</td>
+                                        <td>
+                                            <a target="_nobir" href="{{ $c->assignment_given_file }}">
+                                                {{ $c->assignment_given_file }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $c->end_date }}
                                         </td>
                                     </tr>
                                 @endforeach

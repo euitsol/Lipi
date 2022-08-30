@@ -138,7 +138,7 @@
                     {{-- Manage Students --}}
                     <li
                         class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['students.create', 'students.list', 'students.edit', 'students.show', 'students.promotion', 'students.promotion_manage', 'students.graduated']) ? 'nav-item-expanded nav-item-open' : '' }} ">
-                        {{-- <a href="#" class="nav-link"><i class="icon-users"></i> <span> Students</span></a> --}}
+                        <a href="#" class="nav-link"><i class="icon-users"></i> <span> Students</span></a>
 
                         <ul class="nav nav-group-sub" data-submenu-title="Manage Students">
                             {{-- Admit Student --}}
@@ -157,8 +157,8 @@
                                     class="nav-link {{ in_array(Route::currentRouteName(), ['students.list', 'students.edit', 'students.show']) ? 'active' : '' }}">Student
                                     Information</a>
                                 <ul class="nav nav-group-sub">
-                                    @foreach (App\Models\MyClass::orderBy('name')->get() as $c)
-                                        <li class="nav-item"><a href="{{ route('students.list', $c->id) }}"
+                                    @foreach (App\Models\semester::orderBy('name')->get() as $c)
+                                        <li class="nav-item"><a href="{{ route('students.list', $c->name) }}"
                                                 class="nav-link ">{{ $c->name }}</a></li>
                                     @endforeach
                                 </ul>
@@ -172,12 +172,19 @@
                                         class="nav-link {{ in_array(Route::currentRouteName(), ['students.promotion', 'students.promotion_manage']) ? 'active' : '' }}">Student
                                         Promotion</a>
                                     <ul class="nav nav-group-sub">
-                                        <li class="nav-item"><a href="{{ route('students.promotion') }}"
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('students.Admission_std_show') }}"
+                                                class="nav-link {{ in_array(Route::currentRouteName(), ['students.Admission_std_show']) ? 'active' : '' }}">Promote
+                                                Admission Students</a>
+                                            </li>
+
+                                        {{-- <li class="nav-item"><a href="{{ route('students.promotion') }}"
                                                 class="nav-link {{ in_array(Route::currentRouteName(), ['students.promotion']) ? 'active' : '' }}">Promote
-                                                Students</a></li>
-                                        <li class="nav-item"><a href="{{ route('students.promotion_manage') }}"
+                                                Students</a></li> --}}
+                                        {{-- <li class="nav-item"><a href="{{ route('students.promotion_manage') }}"
                                                 class="nav-link {{ in_array(Route::currentRouteName(), ['students.promotion_manage']) ? 'active' : '' }}">Manage
-                                                Promotions</a></li>
+                                                Promotions</a></li> --}}
                                     </ul>
 
                                 </li>

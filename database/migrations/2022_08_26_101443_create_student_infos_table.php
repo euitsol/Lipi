@@ -30,10 +30,9 @@ class CreateStudentInfosTable extends Migration
             $table->string('nationality');
             $table->string('blood_group_name')->nullable();
             $table->string('exam_name')->nullable();
-            $table->string('passing_year')->nullable();
+            $table->unsignedBigInteger('Departments_id');
             $table->string('semester_name')->nullable();
             $table->string('group_name')->nullable();
-            $table->string('roll')->nullable();
             $table->string('registration_no')->nullable();
             $table->string('cgpa')->nullable();
             $table->string('reg_card')->nullable();
@@ -42,6 +41,7 @@ class CreateStudentInfosTable extends Migration
             $table->string('result')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
+            $table->foreign('departments_id')->references('id')->on("departments")->onUpdate('cascade');
         });
     }
 
