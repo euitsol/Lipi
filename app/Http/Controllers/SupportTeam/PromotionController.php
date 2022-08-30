@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SupportTeam;
 use App\Helpers\Qs;
 use App\Http\Controllers\Controller;
 use App\Models\Mark;
+use App\Models\admissionModel;
 use App\Repositories\MyClassRepo;
 use App\Repositories\StudentRepo;
 use Illuminate\Http\Request;
@@ -45,6 +46,10 @@ class PromotionController extends Controller
 
         return view('pages.support_team.students.promotion.index', $d);
     }
+    
+
+
+    
 
     public function selector(Request $req)
     {

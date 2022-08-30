@@ -25,11 +25,7 @@
                 {{-- <h4 class="text-bold text-white">{{ Qs::getSystemName() }}</h4> --}}
             </a>
         </div>
-        {{-- <div class="navbar-brand">
-            <a href="index.html" class="d-inline-block">
-                <img src="{{ asset('global_assets/images/logo_light.png') }}" alt="">
-            </a>
-        </div> --}}
+
 
         <div class="d-md-none">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
@@ -56,28 +52,12 @@
             <ul class="navbar-nav">
 
                 <li class="nav-item dropdown dropdown-user">
-                    {{-- <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <img style="width: 38px; height:38px;" src="{{ Auth::user()->photo }}" class="rounded-circle" alt="photo">
-                        <span>{{ Auth::user()->name }}</span>
-                    </a> --}}
 
-                    {{-- <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{ Qs::userIsStudent() ? route('students.show', Qs::hash(Qs::findStudentRecord(Auth::user()->id)->id)) : route('users.show', Qs::hash(Auth::user()->id)) }}" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="{{ route('my_account') }}" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-              document.getElementById('logout-form').submit();" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div> --}}
                 </li>
             </ul>
         </div>
     </div>
 
-    {{-- End extracting top manu from here --}}
-    {{-- @include('partials.top_menu') --}}
     <div class="page-content">
         {{-- @include('partials.menu') --}}
         <div class="content-wrapper">
@@ -94,53 +74,13 @@
 
                     <div class="header-elements d-none">
                         <div class="d-flex justify-content-center">
-                            {{-- <a href="#" class="btn btn-link btn-float text-default"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
-                        <a href="#" class="btn btn-link btn-float text-default"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
-                        <a href="#" class="btn btn-link btn-float text-default"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a> --}}
-                            {{-- <a href="{{ Qs::userIsSuperAdmin() ? route('settings') : '' }}" class="btn btn-link btn-float text-default"><i class="icon-arrow-down7 text-primary"></i> <span class="font-weight-semibold">Current Session: {{ Qs::getSetting('current_session') }}</span></a> --}}
+
                         </div>
                     </div>
                 </div>
 
-                {{-- Breadcrumbs --}}
-                {{-- <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
-                <div class="d-flex">
-                    <div class="breadcrumb">
-                        <a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
-                        <a href="form_select2.html" class="breadcrumb-item">Forms</a>
-                        <span class="breadcrumb-item active">Select2 selects</span>
-                    </div>
 
-                    <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-                </div>
-
-                <div class="header-elements d-none">
-                    <div class="breadcrumb justify-content-center">
-                        <a href="#" class="breadcrumb-elements-item">
-                            <i class="icon-comment-discussion mr-2"></i>
-                            Support
-                        </a>
-
-                        <div class="breadcrumb-elements-item dropdown p-0">
-                            <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-gear mr-2"></i>
-                                Settings
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="#" class="dropdown-item"><i class="icon-user-lock"></i> Account security</a>
-                                <a href="#" class="dropdown-item"><i class="icon-statistics"></i> Analytics</a>
-                                <a href="#" class="dropdown-item"><i class="icon-accessibility"></i> Accessibility</a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item"><i class="icon-gear"></i> All settings</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             </div>
-            {{-- End extracting header --}}
-            {{-- @include('partials.header') --}}
 
             <div class="content">
                 {{-- Error Alert Area --}}
@@ -168,6 +108,24 @@
                     <form id="ajax-reg" method="post" enctype="multipart/form-data"
                         class="wizard-form steps-validation" action="{{ route('admission.store') }}" data-fouc>
                         @csrf
+                        <h6>Department Choice</h6>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="bg_id">Department Name: </label>
+                                        <select class="select form-control" id="department" name="Departments_id" data-fouc
+                                            data-placeholder="Choose..">
+                                            <option value="">Select Department</option>
+                                            @foreach (App\Models\departmentModel::all() as $d)
+                                                <option value="{{ $d->id }}">{{ $d->department_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
                         <h6>Personal data</h6>
                         <fieldset>
                             <div class="row">
