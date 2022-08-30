@@ -8,5 +8,9 @@ console.log("1");
 //   console.log("12");
 // });
 $(document.body).on("change", "#confirm_password", function () {
-  alert("Change Happened");
+  var password = $("#password").val();
+  var confirm_password = $("#confirm_password").val();
+  if (password === confirm_password) {
+    $("#err_msg").html("Confirm password don't masched with password");
+  }
 });

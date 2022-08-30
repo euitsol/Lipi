@@ -29,14 +29,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('reset_pass/{st_id}', 'StudentRecordController@reset_pass')->name('st.reset_pass');
             Route::get('graduated', 'StudentRecordController@graduated')->name('students.graduated');
             Route::put('not_graduated/{id}', 'StudentRecordController@not_graduated')->name('st.not_graduated');
-            Route::get('list/{class_id}', 'StudentRecordController@listByClass')->name('students.list')->middleware('teamSAT');
+            Route::get('list/{class_id}', 'StudentRecordController@listBySemester')->name('students.list')->middleware('teamSAT');
 
             /* Promotions */
             Route::post('promote_selector', 'PromotionController@selector')->name('students.promote_selector');
             Route::get('promotion/manage', 'PromotionController@manage')->name('students.promotion_manage');
             Route::delete('promotion/reset/{pid}', 'PromotionController@reset')->name('students.promotion_reset');
             Route::delete('promotion/reset_all', 'PromotionController@reset_all')->name('students.promotion_reset_all');
-            Route::get('promotion/{fc?}/{fs?}/{tc?}/{ts?}', 'PromotionController@promotion')->name('students.promotion');
+            Route::get('promotion/{fc?}/{fs?}/{tc?}/{ts?}', 'PromotionController@promotion')->name('students.promotion');          
             Route::post('promote/{fc}/{fs}/{tc}/{ts}', 'PromotionController@promote')->name('students.promote');
 
         });
@@ -160,6 +160,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('assignment', 'assignmentController');
         Route::resource('userRollCreation', 'userRollController');
         Route::post('assignmentSubmit', 'assignmentController@assignmentSubmit')->name('assignmentSubmit');
+        Route::get('Admission_std_show', 'admissionPromotController@Admission_std_show')->name('students.Admission_std_show');
+        Route::put('Admission_std_promotion', 'admissionPromotController@Admission_std_promotion')->name('students.Admission_std_promotion');
 
     });
 

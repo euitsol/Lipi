@@ -15,6 +15,7 @@ class CreateAdmissionTabel extends Migration
     {
         Schema::create('admission_info', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('departments_id');
             $table->string('name');
             $table->string('father_name');
             $table->string('mother_name');
@@ -40,6 +41,7 @@ class CreateAdmissionTabel extends Migration
             $table->string('photo');
             $table->string('status')->nullable();
             $table->timestamps();
+            $table->foreign('departments_id')->references('id')->on("departments")->onUpdate('cascade');
         });
     }
 
