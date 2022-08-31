@@ -132,7 +132,7 @@ class AdmissionController extends Controller
     $insert->roll =  $req->roll;
     $insert->registration_no =  $req->registration_no;
     $insert->gpa =  $req->gpa;
-    $insert->status =  "not approved";
+    $insert->status =  "wait for approved";
 
     $data['code'] = strtoupper(Str::random(10));
 

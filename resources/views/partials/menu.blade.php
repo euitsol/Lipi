@@ -69,11 +69,11 @@
                     {{-- Manage Attendance --}}
 
                     {{-- @if (Qs::UserAccess()[0]->attendance == 'yes') --}}
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('attendance.index') }}"
                             class="nav-link {{ in_array(Route::currentRouteName(), ['attendance.index', 'attendance.edit']) ? 'active' : '' }}"><i
                                 class="icon-windows2"></i> <span> Attendance</span></a>
-                    </li>
+                    </li> --}}
                     {{-- @endif --}}
                     {{-- Manage Assignments --}}
                     {{-- @if (Qs::UserAccess()[0]->assignment == 'yes')
@@ -144,7 +144,7 @@
                             {{-- Admit Student --}}
                             @if (Qs::userIsTeamSA())
                                 <li class="nav-item">
-                                    <a href="{{ route('students.create') }}"
+                                    <a href="{{ route('admission.create') }}"
                                         class="nav-link {{ Route::is('students.create') ? 'active' : '' }}">Admit
                                         Student</a>
                                 </li>
@@ -177,7 +177,7 @@
                                             <a href="{{ route('students.Admission_std_show') }}"
                                                 class="nav-link {{ in_array(Route::currentRouteName(), ['students.Admission_std_show']) ? 'active' : '' }}">Promote
                                                 Admission Students</a>
-                                            </li>
+                                        </li>
 
                                         {{-- <li class="nav-item"><a href="{{ route('students.promotion') }}"
                                                 class="nav-link {{ in_array(Route::currentRouteName(), ['students.promotion']) ? 'active' : '' }}">Promote
@@ -251,11 +251,11 @@
 
                     {{-- Manage Menues --}}
                     {{-- @if (Qs::UserAccess()[0]->deparment == 'yes') --}}
-                        <li class="nav-item">
-                            <a href="{{ route('manus.index') }}"
-                                class="nav-link {{ in_array(Route::currentRouteName(), ['manus.index', 'manus.edit']) ? 'active' : '' }}"><i
-                                    class="icon-windows2"></i> <span> Menue</span></a>
-                        </li>
+                    <li class="nav-item">
+                        <a href="{{ route('manus.index') }}"
+                            class="nav-link {{ in_array(Route::currentRouteName(), ['manus.index', 'manus.edit']) ? 'active' : '' }}"><i
+                                class="icon-windows2"></i> <span> Menue</span></a>
+                    </li>
                     {{-- @endif --}}
 
 
@@ -302,13 +302,13 @@
 
 
                     {{-- Manage Sections --}}
-                    @if (Qs::UserAccess()[0]->group == 'yes')
+                    {{-- @if (Qs::UserAccess()[0]->group == 'yes')
                         <li class="nav-item">
                             <a href="{{ route('sections.index') }}"
                                 class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index', 'sections.edit']) ? 'active' : '' }}"><i
                                     class="icon-fence"></i> <span>Group</span></a>
                         </li>
-                    @endif
+                    @endif --}}
 
 
                     {{-- Manage Notice --}}

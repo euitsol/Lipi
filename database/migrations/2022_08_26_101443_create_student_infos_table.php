@@ -15,7 +15,7 @@ class CreateStudentInfosTable extends Migration
     {
         Schema::create('student_infos', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unique()->nullable();
+            $table->string('student_id')->unique()->nullable();
             $table->string('name');
             $table->string('father_name');
             $table->string('mother_name');
@@ -29,10 +29,7 @@ class CreateStudentInfosTable extends Migration
             $table->string('Quota')->nullable();
             $table->string('nationality');
             $table->string('blood_group_name')->nullable();
-            $table->string('exam_name')->nullable();
-            $table->unsignedBigInteger('Departments_id');
-            $table->string('semester_name')->nullable();
-            $table->string('group_name')->nullable();
+            $table->unsignedBigInteger('departments_id');
             $table->string('registration_no')->nullable();
             $table->string('cgpa')->nullable();
             $table->string('reg_card')->nullable();
