@@ -16,7 +16,7 @@ class CreateTeachersTable extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id('id');
             $table->string('user_id')->unique();
-            $table->string('department_name');
+            $table->unsignedBigInteger('department_id');
             $table->string('name');
             $table->string('address');
             $table->string('email', 100)->unique();
@@ -28,6 +28,7 @@ class CreateTeachersTable extends Migration
             $table->string('photo');
             $table->string('resume');
             $table->timestamps();
+            $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
