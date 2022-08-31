@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SupportTeam;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Models\departmentModel;
+use App\Models\dssts_jt;
 use App\User;
 
 use App\Helpers\Qs;
@@ -55,12 +56,7 @@ class TeacherController extends Controller
         $id = Qs::decodeHash($id);
         $data['blood_groups'] = $this->user->getBloodGroups();
         $data["teachers"] = Teacher::find($id);
-        // dd($data['teachers']);
-        // $d['user'] = $this->user->find($id);
-        // $d['states'] = $this->loc->getStates();
-        // $d['users'] = $this->user->getPTAUsers();
-        // $d['blood_groups'] = $this->user->getBloodGroups();
-        // $d['nationals'] = $this->loc->getAllNationals();
+
         return view('pages.support_team.teachers.edit', $data);
     }
 
@@ -102,16 +98,15 @@ class TeacherController extends Controller
         } else{
             // dd();
             
-                $user_table = User::where("user_id","=",$req->teacher_id)
-                            ->where("user_roll","=","teacher")
-                            ->get();
+                $user_table = User::where("user_id","=",$req->teacher_id)->get();
                            
                 if(count($user_table)>0)
                 {
-
+                
+                // Teacher info store 
                 $insert = new Teacher;
                 $insert->user_id = $req->teacher_id;
-                $insert->department_name = $req->department_name;
+                $insert->department_id = Qs::decodeHash($req->department_id);
                 $insert->name =  $req->name;
                 $insert->address = $req->address;
                 $insert->email = $req->email;
@@ -144,9 +139,14 @@ class TeacherController extends Controller
 
                 $insert->save();
 
+                // Department Semester Teache Section junction table record create 
+                // $insert_dssts_jt = new dssts_jt;
+                // $insert_dssts_jt->department_id = $department_id;
+                // $insert_dssts_jt->semester_id = $semester_id;
+                // $insert_dssts_jt->student_id = $student_id;
+                // $insert_dssts_jt->section_id = $section_id;
+                // $insert_dssts_jt->session = $session;
                 // user create
-                // $teacher_table = Teacher::where("phone","=",$req->phone)->get();
-                // $insert_user = new User;
                 $user_table_update = User::where("user_id","=",$req->teacher_id)
                                     ->first();
                 $user_table_update->name =  $req->name;
@@ -206,7 +206,7 @@ class TeacherController extends Controller
                 //     $this->user->createStaffRecord($d2);
                 // }
 
-            return redirect()->route("home")->with("msg","Your Registration has been successfull");
+            return redirect()->route("teachers.index")->with("msg","Your Registration has been successfull");
         }
         else{
             return redirect()->route("teachers.index")->with("msg","Teacher ID is not found");

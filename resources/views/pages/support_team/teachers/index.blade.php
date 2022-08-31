@@ -25,7 +25,7 @@
             <div class="tab-content">
                 <div>
                     @if (session()->has('msg'))
-                        <div class="alert alert-danger">
+                        <div class="alert alert-success">
                             {{ session()->get('msg') }}
                         </div>
                     @endif
@@ -69,12 +69,12 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="user_type"> Select Department: <span
+                                        <label for="department_id"> Select Department: <span
                                                 class="text-danger">*</span></label>
-                                        <select required data-placeholder="Select User" class="form-control select" required
-                                            name="department_name" id="department_name">
+                                        <select required data-placeholder="Select Department" class="form-control select" required
+                                            name="department_id" id="department_id">
                                             @foreach ($departments as $ut)
-                                                <option value="{{ $ut->short_name }}">{{ $ut->short_name }}</option>
+                                                <option value="{{ Qs::hash($ut->id) }}">{{ $ut->short_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
