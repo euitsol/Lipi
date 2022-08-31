@@ -111,7 +111,7 @@
                         <h6>Department Choice</h6>
                         <fieldset>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="bg_id">Department Name: </label>
                                         <select class="select form-control" id="department" name="Departments_id" data-fouc

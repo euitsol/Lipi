@@ -39,6 +39,7 @@ class CreateStudentInfosTable extends Migration
             $table->string('marksheet')->nullable();
             $table->string('photo')->nullable();
             $table->string('result')->nullable();
+            $table->string('session')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
             $table->foreign('departments_id')->references('id')->on("departments")->onUpdate('cascade');

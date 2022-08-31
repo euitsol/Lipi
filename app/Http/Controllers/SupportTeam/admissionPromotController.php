@@ -33,39 +33,44 @@ class admissionPromotController extends Controller
         $update = admissionModel::find($id);
         $update->status = 'Aproved';
         $update->save();
-        
-        $randon_number = rand(1,999999);
-        $f_year = date('Y');
-        $year = substr($f_year,-2);
-        $user_id = $year-$randon_number;
-        $semester = semester::first();
 
-        $insert = new studentInfo;
-        $insert->user_id = $user_id;
-        $insert->name = $update->name;
-        $insert->father_name =  $update->father_name;
-        $insert->mother_name = $update->mother_name;
-        $insert->present_address = $update->present_address;
-        $insert->parmanent_address = $update->address;
-        $insert->email = $update->email;
-        $insert->gender = $update->gender;
-        $insert->phone =  $update->phone;
-        $insert->phone2 =  $update->phone2;
-        $insert->dob =  $update->dob;
-        $insert->Quota =  $update->Quota;
-        $insert->nationality =  $update->nationality;
-        $insert->blood_group_name = $update->blood_group_name;
-        $insert->exam_name =  $update->exam_name;
-        $insert->Department_name =  $update->Department_name;
-        $insert->semester_name = $semester->name;
-        $insert->registration_no =  $update->registration_no;
-        $insert->reg_card =  $update->reg_card;
-        $insert->marksheet =  $update->marksheet;
-        $insert->photo =  $update->photo;
-        $insert->status =  "not approved";
+        $d['update']= $update;
+        $d['id']= $id;
+        $d['name']= $name;
+        // $update->status = 'Aproved';
+        // $update->save();
+        // $randon_number = rand(1,999999);
+        // $f_year = date('Y');
+        // $year = substr($f_year,-2);
+        // $user_id = $year-$randon_number;
+        // $semester = semester::first();
+
+        // $insert = new studentInfo;
+        // $insert->user_id = $user_id;
+        // $insert->name = $update->name;
+        // $insert->father_name =  $update->father_name;
+        // $insert->mother_name = $update->mother_name;
+        // $insert->present_address = $update->present_address;
+        // $insert->parmanent_address = $update->address;
+        // $insert->email = $update->email;
+        // $insert->gender = $update->gender;
+        // $insert->phone =  $update->phone;
+        // $insert->phone2 =  $update->phone2;
+        // $insert->dob =  $update->dob;
+        // $insert->Quota =  $update->Quota;
+        // $insert->nationality =  $update->nationality;
+        // $insert->blood_group_name = $update->blood_group_name;
+        // $insert->exam_name =  $update->exam_name;
+        // $insert->Department_name =  $update->Department_name;
+        // $insert->semester_name = $semester->name;
+        // $insert->registration_no =  $update->registration_no;
+        // $insert->reg_card =  $update->reg_card;
+        // $insert->marksheet =  $update->marksheet;
+        // $insert->photo =  $update->photo;
+        // $insert->status =  "not approved";
 
         
-        return redirect()->back()->with('msg',"Successfully Aproved $name to Semester-1,See in Semester-1 student list");
+        return view('pages.support_team.students.promotion.assign', $d)->with('msg',"Successfully Aproved $name to Semester-1,See in Semester-1 student list. Now Assign Semester,group");
        }
 
        if($status == 'decline')
@@ -79,5 +84,43 @@ class admissionPromotController extends Controller
         
 
         // return view('pages.support_team.students.promotion.admissionPromossion', $d);
+    }
+  public  function Admission_std_assign(Request $request){
+    // echo 'done';
+    // $status = $request->status;
+       $id = $request->id;
+    //    $name = $request->name;
+       $id = Qs::decodeHash($id);
+       
+    $randon_number = rand(1,999999);
+    $f_year = date('Y');
+    $year = substr($f_year,-2);
+    $user_id = $year-$randon_number;
+    $semester = semester::first();
+    $update = admissionModel::find($id);
+
+    $insert = new studentInfo;
+    $insert->user_id = $user_id;
+    $insert->name = $update->name;
+    $insert->father_name =  $update->father_name;
+    $insert->mother_name = $update->mother_name;
+    $insert->present_address = $update->present_address;
+    $insert->parmanent_address = $update->address;
+    $insert->email = $update->email;
+    $insert->gender = $update->gender;
+    $insert->phone =  $update->phone;
+    $insert->phone2 =  $update->phone2;
+    $insert->dob =  $update->dob;
+    $insert->Quota =  $update->Quota;
+    $insert->nationality =  $update->nationality;
+    $insert->blood_group_name = $update->blood_group_name;
+    $insert->exam_name =  $update->exam_name;
+    $insert->Department_name =  $update->Department_name;
+    $insert->semester_name = $semester->name;
+    $insert->registration_no =  $update->registration_no;
+    $insert->reg_card =  $update->reg_card;
+    $insert->marksheet =  $update->marksheet;
+    $insert->photo =  $update->photo;
+    $insert->status =  "not approved";
     }
 }

@@ -147,7 +147,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('dorms', 'DormController');
         Route::resource('payments', 'PaymentController');
         
-        //Routes::::::::::::::::::::::Nobir
+        //*Routes::::::::: Nobir :::::::::::::
         Route::resource('departments', 'departmentController');
         Route::resource('classRoom', 'ClassRoomController');
         Route::resource('notice', 'noticeController');
@@ -158,6 +158,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('routine', 'routineController');
         Route::resource('assignment', 'assignmentController');
         Route::resource('userRollCreation', 'userRollController');
+        Route::resource('manus', 'menusController');
         Route::post('assignmentSubmit', 'assignmentController@assignmentSubmit')->name('assignmentSubmit');
 
 
