@@ -23,8 +23,16 @@
                     <div class="row">
                         <div class="col-md-6">
                             {{-- class="ajax-store" --}}
-                            <form  method="post" action="{{ route('attendance.store') }}">
+                            <form  method="post" action="{{ route('attendance_student_list') }}">
                                 @csrf
+
+                                <div class="form-group row">
+                                    <label for="my_class_id" class="col-lg-3 col-form-label font-weight-semibold">Date<span class="text-danger">*</span></label>
+                                    <div class="col-lg-9">
+                                        <input type="date" id="date" name="date" class="form-control">
+                                   </div>
+                                </div>
+
                                 <div class="form-group row">
                                     <label for="my_class_id" class="col-lg-3 col-form-label font-weight-semibold">Department Name <span class="text-danger">*</span></label>
                                     <div class="col-lg-9">
@@ -56,6 +64,19 @@
                                             <option value="">Select Subject</option>
                                             @foreach($subject_db as $c)
                                             <option value="{{Qs::hash($c->id) }}">{{$c->subject_name}}</option>
+
+                                            @endforeach
+                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="my_class_id" class="col-lg-3 col-form-label font-weight-semibold">Group <span class="text-danger">*</span></label>
+                                    <div class="col-lg-9">
+                                         <select required data-placeholder="Select Group" class="form-control select" name="section_id" id="section_id">
+                                            <option value="">Select Group</option>
+                                            @foreach($sections as $d)
+                                            <option value="{{Qs::hash($d->id)}}">{{$d->name}}</option>
 
                                             @endforeach
                                          </select>
