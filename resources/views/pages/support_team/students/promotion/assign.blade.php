@@ -22,11 +22,20 @@
                     <form method="post" action="{{ route('students.Admission_std_assign') }}">
                         @csrf
                         <div class="row">
+
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="department_id">Department Name: </label>
+                                    <label for="student_id">Student ID<span class="text-danger">*</span> </label>
+                                    <input name="student_id" value="{{ old('student_id') }}" required type="text"
+                                        class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="department_id">Department Name<span class="text-danger">*</span> </label>
                                     <select class="select form-control" id="department_id" name="department_id" data-fouc
-                                        data-placeholder="Choose..">
+                                        data-placeholder="Choose.." required>
                                         <option value="{{ Qs::hash($update->departments_id) }}">
                                             {{ $update->departments->department_name }}</option>
                                         {{-- @foreach (App\Models\departmentModel::all() as $d)
@@ -38,9 +47,9 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="semester_id">Semester Name: </label>
+                                    <label for="semester_id">Semester Name<span class="text-danger">*</span> </label>
                                     <select class="select form-control" id="semester_id" name="semester_id" data-fouc
-                                        data-placeholder="Choose..">
+                                        data-placeholder="Choose.." required>
                                         <option value=""></option>
                                         @foreach (App\Models\semester::all() as $s)
                                             <option value="{{ Qs::hash($s->id) }}">{{ $s->name }}</option>
@@ -51,9 +60,9 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="section_id">Group Name: </label>
+                                    <label for="section_id">Group Name<span class="text-danger">*</span></label>
                                     <select class="select form-control" id="section_id" name="section_id" data-fouc
-                                        data-placeholder="Choose..">
+                                        data-placeholder="Choose.." required>
                                         <option value=""></option>
                                         @foreach (App\Models\Section::all() as $s)
                                             <option value="{{ Qs::hash($s->id) }}">{{ $s->name }}</option>
@@ -64,14 +73,14 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="session_start">Session Start: </label>
+                                    <label for="session_start">Session Start<span class="text-danger">*</span> </label>
                                     <input name="session_start" value="{{ old('session_start') }}" required type="date"
                                         class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="session_end">Session End: </label>
+                                    <label for="session_end">Session End<span class="text-danger">*</span> </label>
                                     <input name="session_end" value="{{ old('session_end') }}" required type="date"
                                         class="form-control">
                                 </div>
