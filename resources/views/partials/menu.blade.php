@@ -249,6 +249,15 @@
                         </li>
                     @endif
 
+                    {{-- Manage Menues --}}
+                    {{-- @if (Qs::UserAccess()[0]->deparment == 'yes') --}}
+                        <li class="nav-item">
+                            <a href="{{ route('manus.index') }}"
+                                class="nav-link {{ in_array(Route::currentRouteName(), ['manus.index', 'manus.edit']) ? 'active' : '' }}"><i
+                                    class="icon-windows2"></i> <span> Menue</span></a>
+                        </li>
+                    {{-- @endif --}}
+
 
                     {{-- Manage Semester --}}
                     @if (Qs::UserAccess()[0]->semester == 'yes')
