@@ -163,6 +163,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('assignmentSubmit', 'assignmentController@assignmentSubmit')->name('assignmentSubmit');
         Route::get('Admission_std_show', 'admissionPromotController@Admission_std_show')->name('students.Admission_std_show');
         Route::put('Admission_std_promotion', 'admissionPromotController@Admission_std_promotion')->name('students.Admission_std_promotion');
+        Route::post('Admission_std_assign', 'admissionPromotController@Admission_std_assign')->name('students.Admission_std_assign');
 
     });
 
